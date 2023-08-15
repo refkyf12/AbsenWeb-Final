@@ -129,35 +129,8 @@
 <script type="text/javascript">
   $(document).ready(function () {
     // Tambahkan tombol custom bernama "Download"
-    $.fn.dataTable.ext.buttons.customDownload = {
-      text: 'Download',
-      extend: 'collection',
-      autoClose: true, // Auto close tombol ekspor saat tombol "Download" diklik lagi
-      buttonPosition: 'bottom', // Menempatkan tombol ekspor di bawah tombol "Download"
-      buttons: [
-        {
-          extend: 'csv',
-          text: 'CSV',
-        },
-        {
-          extend: 'excel',
-          text: 'Excel',
-        },
-        {
-          extend: 'pdf',
-          text: 'PDF',
-        },
-        {
-          extend: 'print',
-          text: 'Print',
-        },
-      ],
-    };
 
-    $('.myTable').DataTable({
-      dom: 'Bfrtip',
-      buttons: ['customDownload'], // Gunakan tombol custom yang telah ditambahkan
-    });
+    $('.myTable').DataTable();
   });
 </script>
 

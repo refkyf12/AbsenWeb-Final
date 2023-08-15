@@ -46,7 +46,7 @@
                 <div class="box-body">
                 @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
                 <form method="post" action="/log_absen/import_excel" enctype="multipart/form-data">
-                        <button id="showModalBtn" class="btn btn-primary">Import Data</button>
+                        <button id="showModalBtn" class="btn btn-primary">Upload</button>
                     <div class="modal-dialog" role="document">
                         
 
@@ -144,7 +144,7 @@
                                         
                                         <div style="width:90px">
                                                 <a href="/log_absen/edit/{{$dt->id}}" class="btn btn-warning btn-xs btn-edit"
-                                                id="edit"><i class="fa fa-edit"></i></a>
+                                                id="edit"><i class="fa fa-edit"></i>Edit</a>
                                         </div>
                                     </td>
                                 @endif

@@ -19,7 +19,7 @@
         <div class="box box-warning">
             <div class="box-header">
                 <div class="box-body">
-                    <form method="GET" action="/lembur/filter">
+                    <form method="GET" action="/log_kegiatan/filter">
                         <div class="form-group">
                             <label for="tanggal-filter-start">Tanggal Awal:</label>
                             <input type="date" name="start_date" class="form-control">

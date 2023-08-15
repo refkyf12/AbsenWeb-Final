@@ -33,7 +33,8 @@ class LemburController extends Controller
 
     public function index(){
         $this->validate();
-        //$lembur = Lembur::with('User')->get();
+        
+        $usersId = request()->input('users_id'); // Ambil nilai users_id dari query parameter
 
         $lembur = DB::table('lembur')
             ->leftJoin('log_absen', function ($join) {
@@ -44,12 +45,23 @@ class LemburController extends Controller
             ->select('lembur.*', 'log_absen.jam_keluar','users.nama as user_nama')
             ->get();
 
-        // dd($lembur);
-        if (request()->segment(1) == 'api') return response()->json([
-            "error"=>false,
-            "list"=>$lembur,
+        if ($usersId) {
+        // Jika users_id diberikan, ambil data log absen yang sesuai dengan users_id
+            $lembur = Lembur::where('users_id', $usersId)->get();
+        } else {
+        // Jika users_id tidak diberikan, ambil semua data log absen
+        $lembur = Lembur::all();
+        }
+
+        if (request()->segment(1) == 'api') {
+        // Jika permintaan melalui API, kembalikan data dalam bentuk JSON
+            return response()->json([
+            "error" => false,
+            "list" => $lembur,
         ]);
-        // dd($lembur);
+        }
+
+        
         return view('Lembur.index', ['data' => $lembur]);
     }
 
@@ -486,5 +498,38 @@ class LemburController extends Controller
             ->get();
         
         return view('AkumulasiLembur.detail', compact('dataDetail'));
+    }
+
+    public function storeMobileLembur(Request $request){
+        $lemburData = new Lembur;
+        $lemburData->users_id = $request->users_id ;
+        $lemburData->tanggal = $request->tanggal;
+        $lemburData->jam_awal = $request->jam_awal;
+        $lemburData->jam_akhir = $request->jam_akhir;
+        $lemburData->status_kerja = $request->status_kerja;
+        $temp = ($this->timeToInteger($request->jam_akhir) - $this->timeToInteger($request->jam_awal))/60;
+        $lemburData->jumlah_jam = $temp;
+        
+
+        $lemburData->save();
+
+        if (Auth::check())
+        {
+            date_default_timezone_set("Asia/Jakarta");
+            $id = Auth::id();
+            $date = date("Y-m-d h:i:sa");
+            $data = $request->nama;
+            $text = 'Melakukan Tambah Lembur Karyawan ' . $data;
+            $logKegiatan = new logKegiatan;
+            $logKegiatan->users_id = $id;
+            $logKegiatan->kegiatan = $text;
+            $logKegiatan->created_at = $date;
+            $logKegiatan->save();
+        }
+        if (request() ->segment(1)=='api') return response()->json([
+            "error" => false,
+            "message" => 'Tambah Berhasil',
+        ]);
+
     }
 }

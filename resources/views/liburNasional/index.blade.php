@@ -50,7 +50,7 @@
                                     <th>Tanggal</th>
                                     <th>Deskripsi</th>
                                     @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
-                                    <th>Aksi</th>
+                                    <th>Action</th>
                                     @endif
                                 </tr>
                             </thead>
@@ -64,7 +64,7 @@
                                     <td>
                                         <div style="width:90px">
                                             <a href="/libur/{{$dt->id}}" class="btn btn-warning btn-xs btn-edit"
-                                                id="edit"><i class="fa fa-check"></i></a>
+                                                id="edit"><i class="fa fa-edit"></i>Edit</a>
                                         </div>
                                     </td>
                                     @endif

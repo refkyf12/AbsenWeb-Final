@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 
 @section('content')
 
@@ -49,7 +49,7 @@
                                     <td>
                                         <div style="width:90px">
                                             <a href="/role/{{ $dt->id }}" class="btn btn-warning btn-xs btn-edit"
-                                                id="edit"><i class="fa fa-check"></i></a>
+                                                id="edit"><i class="fa fa-edit"></i>Edit</a>
                                         </div>
                                     </td>
                                     @endif
@@ -68,15 +68,13 @@
     @section('scripts')
 
     <script type="text/javascript">
-        $(document).ready(function () {
+  $(document).ready( function () {
+    $('.myTable').DataTable();
 
-            // btn refresh
-            $('.btn-refresh').click(function (e) {
-                e.preventDefault();
-                $('.preloader').fadeIn();
-                location.reload();
-            })
+    // $('.sync-ulang').click(function(e){
+    //   e.preventDefault();
+    //   $('#modal-sync').modal();
+    // })
 
-        })
-
-    </script>
+} );
+</script>

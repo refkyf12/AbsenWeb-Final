@@ -20,8 +20,7 @@
             <div class="box-header">
             @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
                 <p>
-                    <a href="/lembur/create" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Tambah
-                        Data</a>
+                    <a href="/lembur/create" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Form Pengajuan</a>
                 </p>
                 @endif
                 <div class="box-body">
@@ -56,7 +55,7 @@
                                     <th>Jam Akhir</th>
                                     <th>Jam Keluar</th>
                                     <th>Status Kerja</th>
-                                    <th>Status Approval</th>
+                                    <th>Status</th>
                                     @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
                                     <th>Aksi</th>
                                     @endif
@@ -102,10 +101,10 @@
                                         <div style="width:90px">
                                             @if($dt->status == null)
                                                 <a href="/lembur/status/{{$dt->id}}" class="btn btn-success btn-xs btn-edit"
-                                                id="edit"><i class="fa fa-check"></i></a>
+                                                id="edit"><i class="fa fa-check"></i>Approval</a>
                                             @endif
                                                 <a href="/lembur/status/viewedit/{{$dt->id}}" class="btn btn-warning btn-xs btn-edit"
-                                                id="edit"><i class="fa fa-edit"></i></a>
+                                                id="edit"><i class="fa fa-edit"></i>Edit</a>
                                         </div>
                                     </td>
                                     @endif

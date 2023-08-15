@@ -18,6 +18,14 @@ class LiburNasionalController extends Controller
     {
         $this->validate();
         $libur_nasional = liburNasional::all();
+
+        if (request()->segment(1) == 'api') {
+            // Jika permintaan melalui API, kembalikan data dalam bentuk JSON
+            return response()->json([
+                "error" => false,
+                "list" => $libur_nasional,
+            ]);
+        }
 		return view('liburNasional.index',['data'=>$libur_nasional]);
     }
 

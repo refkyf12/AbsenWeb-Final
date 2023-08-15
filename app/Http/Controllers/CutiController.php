@@ -22,10 +22,23 @@ class CutiController extends Controller
     public function index(){
         $this->validate();
         $cuti = Cuti::with('User')->get();
-        if (request()->segment(1) == 'api') return response()->json([
-            "error"=>false,
-            "list"=>$cuti,
+        $usersId = request()->input('users_id'); // Ambil nilai users_id dari query parameter
+
+        if ($usersId) {
+        // Jika users_id diberikan, ambil data log absen yang sesuai dengan users_id
+            $cuti = Cuti::where('users_id', $usersId)->get();
+        } else {
+        // Jika users_id tidak diberikan, ambil semua data log absen
+            $cuti = Cuti::all();
+        }
+
+    if (request()->segment(1) == 'api') {
+        // Jika permintaan melalui API, kembalikan data dalam bentuk JSON
+        return response()->json([
+            "error" => false,
+            "list" => $cuti,
         ]);
+    }
         return view('Cuti.index', ['data' => $cuti]);
     }
 
@@ -33,7 +46,7 @@ class CutiController extends Controller
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        $cuti = Cuti::whereDate('tanggal','>=',$start_date)->whereDate('tanggal','<=',$end_date)->get();
+        $cuti = Cuti::whereDate('tanggal_awal','>=',$start_date)->whereDate('tanggal_akhir','<=',$end_date)->get();
 
         //dd($log_absen);
 
@@ -199,13 +212,13 @@ class CutiController extends Controller
 
     public function storeMobile(Request $request){
         try{
-            $user = User::find($request->nama);
+        $user = User::find($request->nama);
 
 
         $liburNasional = LiburNasional::pluck('tanggal')->toArray();
         $total = 0;
         $cutiData = new Cuti;
-        $cutiData->users_id = $request->nama ;
+        $cutiData->users_id = $request->users_id ;
         $cutiData->tanggal_awal = $request->tanggal_awal;
         $cutiData->tanggal_akhir = $request->tanggal_akhir;
         $currentDate = $request->tanggal_awal;

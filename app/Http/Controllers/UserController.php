@@ -160,6 +160,8 @@ class UserController extends Controller
             $pass_crypt = bcrypt($request->password);
             $karyawan->role_id = $request->role_id;
             $karyawan->password = $pass_crypt;
+            $roles = Role::find($request->role_id);
+            $karyawan->sisa_cuti = $roles->sisa_cuti;
     
             $karyawan->save();
             if (Auth::check())

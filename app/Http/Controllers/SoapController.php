@@ -74,7 +74,7 @@ class SoapController extends Controller
 
         // $currentDate = getDatetimeNow();
 
-        $yesterday = date('Y-m-d',strtotime("-1 days"));
+        $yesterday = date('Y-m-d',strtotime("-3 days"));
         //$e = 0;
 
         // $yesterday=date('2023-07-11');
@@ -117,6 +117,7 @@ class SoapController extends Controller
                 $logAbsen->jam_masuk = $jamAwal;
                 $logAbsen->jam_keluar = $jamAkhir;
 
+
                 $total = ($this->timeToInteger($jamAkhir) - $this->timeToInteger($jamAwal));
 
                 $totaljam = $total/3600;
@@ -137,7 +138,8 @@ class SoapController extends Controller
 
                 $batas = $this->getBatasWaktu();
                 $lamaBekerja = $this->getLamaKerja();
-                $lamaBekerja = $lamaBekerja * 60;
+                $lamaBekerja = $lamaBekerja * 3600;
+
                 if ($total < $lamaBekerja)  {
                     $statusTerlambat = true;
                 }else{

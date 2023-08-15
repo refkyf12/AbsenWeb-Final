@@ -20,7 +20,7 @@
             <div class="box-header">
                 
                 <p>
-                    <a href="/cuti/create" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Tambah Data</a>
+                    <a href="/cuti/create" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Form Pengajuan</a>
                 </p>
             </div>
             <div class="box-body">
@@ -50,7 +50,7 @@
                                 <th>Tanggal Akhir</th>
                                 <th>Lama Cuti (hari) </th>
                                 <th>Deskripsi</th>
-                                <th>Approval</th>
+                                <th>Status</th>
                                 @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
                                 <th>Action</th>
                                 @endif
@@ -84,7 +84,7 @@
                                     
                                 <div style="width:90px">
                                             <a href="/cuti/status/{{$dt->id}}" class="btn btn-warning btn-xs btn-edit"
-                                                id="edit"><i class="fa fa-check"></i></a>
+                                                id="edit"><i class="fa fa-check"></i>Approval</a>
                                         </div>
                                 </td>
                                 @endif

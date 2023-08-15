@@ -54,7 +54,7 @@ class LogActivityController extends Controller
 
         $conv = json_decode($data,true);
 
-        $yesterday = date('Y-m-d',strtotime("-1 days"));
+        $yesterday = date('Y-m-d',strtotime("-4 days"));
         foreach ($conv['Row'] as $data){
             $id = $data['PIN'];
             $datetime = $data['DateTime'];
@@ -108,5 +108,16 @@ class LogActivityController extends Controller
     public function destroy(LogActivity $logActivity)
     {
         //
+    }
+
+    public function filter(Request $request){
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $lembur = LogActivity::whereDate('tanggal','>=',$start_date)->whereDate('tanggal','<=',$end_date)->get();
+
+        //dd($log_absen);
+
+        return view('logActivity.index', ['data'=>$lembur]);
     }
 }

@@ -28,6 +28,11 @@ class AbsenNonKerjaController extends Controller
         $batas = $rules["value"];
         return $batas;
     }
+    public function getLamaKerja(){
+        $rules = Rules::where('key', "lama_kerja")->first();
+        $lamaKerja = $rules["value"];
+        return $lamaKerja;
+    }
 
     public function logAbsenNonKerja(Request $request)
     {
@@ -97,7 +102,10 @@ class AbsenNonKerjaController extends Controller
                 $totalWaktu = $totaljam.":".$totalmenit;
 
                 $batas = $this->getBatasWaktu();
-                if ($this->timeToInteger($jamAwal) > $this->timeToInteger($batas))  {
+                $lamaBekerja = $this->getLamaKerja();
+                $lamaBekerja = $lamaBekerja * 3600;
+
+                if ($total < $lamaBekerja)  {
                     $statusTerlambat = true;
                 }else{
                     $statusTerlambat = false;

@@ -26,6 +26,7 @@
  
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -45,7 +46,7 @@
             {{ session('error') }}
         </div>
         @endif
-    <p class="login-box-msg">Masuk untuk memulai</p>
+    <p class="login-box-msg">Login</p>
  
     <form class="form-horizontal" method="POST" action="/authenticate">
       {{ csrf_field() }}

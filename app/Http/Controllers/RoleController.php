@@ -92,6 +92,8 @@ class RoleController extends Controller
             $data->id = $request->id;
             $data->nama_role = $request->nama_role;
             $data->sisa_cuti = $request->sisa_cuti;
+            $data->update();
+
             if (Auth::check())
                 {
                     date_default_timezone_set("Asia/Jakarta");
@@ -105,8 +107,8 @@ class RoleController extends Controller
                     $logKegiatan->created_at = $date;
                     $logKegiatan->save();
                 }
-            $data->update();
             }
+
             return redirect('/role')->with('success', 'Data berhasil diperbarui');
         }catch(Exception $e){
             $errorMessage = $e->getMessage();

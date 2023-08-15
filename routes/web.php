@@ -38,6 +38,8 @@ Route::post('/soap_data', 'App\Http\Controllers\SoapController@logAbsenStore');
 Route::post('/soap_non_kerja', 'App\Http\Controllers\AbsenNonKerjaController@logAbsenNonKerja');
 Route::post('/soap_data_july', 'App\Http\Controllers\SoapController@getJulyData');
 Route::get('/log_activity', 'App\Http\Controllers\LogActivityController@index');
+Route::get('/log_activity/filter', 'App\Http\Controllers\LogActivityController@filter');
+
 
 
 Route::get('/reset', 'App\Http\Controllers\UserController@reset'); 
@@ -93,6 +95,7 @@ Route::post('/libur/update/{id}', 'App\Http\Controllers\LiburNasionalController@
 Route::get('/akumulasi_tahunan', 'App\Http\Controllers\AkumulasiTahunanController@index');
 
 Route::get('/log_kegiatan', 'App\Http\Controllers\LogKegiatanController@index');
+Route::get('/log_kegiatan/filter', 'App\Http\Controllers\LogKegiatanController@filter');
 
 // Route::resource('cuti', CutiController::class);
 Route::get('/cuti', 'App\Http\Controllers\CutiController@index');

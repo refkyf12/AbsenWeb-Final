@@ -36,17 +36,42 @@ class LogAbsenController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index()
+    // {
+    //     $this->validate();
+    //     $log_absen = logAbsen::all();
+    //     if(request()-> segment(1) =='api') return response()->json([
+    //         "error"=> false,
+    //         "list" => $log_absen,
+    //     ]);
+        
+	// 	return view('log_absen.LogAbsen',['data'=>$log_absen]);
+    // }
     public function index()
-    {
-        $this->validate();
+{
+    $this->validate();
+    $usersId = request()->input('users_id'); // Ambil nilai users_id dari query parameter
+
+    if ($usersId) {
+        // Jika users_id diberikan, ambil data log absen yang sesuai dengan users_id
+        $log_absen = logAbsen::where('users_id', $usersId)->get();
+    } else {
+        // Jika users_id tidak diberikan, ambil semua data log absen
         $log_absen = logAbsen::all();
-        if(request()-> segment(1) =='api') return response()->json([
-            "error"=> false,
+    }
+
+    if (request()->segment(1) == 'api') {
+        // Jika permintaan melalui API, kembalikan data dalam bentuk JSON
+        return response()->json([
+            "error" => false,
             "list" => $log_absen,
         ]);
-        
-		return view('log_absen.LogAbsen',['data'=>$log_absen]);
     }
+
+    // Jika permintaan melalui web, tampilkan tampilan (view) dengan data log_absen
+    return view('log_absen.LogAbsen', ['data' => $log_absen]);
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -153,7 +178,7 @@ class LogAbsenController extends Controller
                     $data->total_jam = $temp;
 
                     $lamaKerja = $this->getLamaKerja();
-                    $lamaKerja = $lamaKerja * 60;
+                    $lamaKerja = $lamaKerja * 3600;
 
                     if($temp2 < $lamaKerja){
                         $data->keterlambatan = 1;
