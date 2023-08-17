@@ -39,6 +39,7 @@ Route::post('/soap_non_kerja', 'App\Http\Controllers\AbsenNonKerjaController@log
 Route::post('/soap_data_july', 'App\Http\Controllers\SoapController@getJulyData');
 Route::get('/log_activity', 'App\Http\Controllers\LogActivityController@index');
 Route::get('/log_activity/filter', 'App\Http\Controllers\LogActivityController@filter');
+Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
 
 
 
