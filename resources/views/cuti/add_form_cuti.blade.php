@@ -64,6 +64,15 @@
                         />
                     </div>
                     <div class="form-group">
+                        <label>Cuti/Izin</label>
+                        <br>
+                        <select required name="type">
+                        <option value="">--pilih--</option>
+                        <option value=1>Cuti</option>
+                        <option value=2>Izin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Deskripsi</label>
                         <input
                             type="text"

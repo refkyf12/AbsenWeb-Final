@@ -40,7 +40,7 @@
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Permit ▼</span></a>
             <ul id="dropdown-lembur" style="display: none;">
               <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/lembur') }}"><span class="fa fa-firefox"></span>Lembur</span></a></li>
-              <li class="menu-sidebar"  style="margin-bottom: 10px;"><a href="{{ url('/cuti') }}"><span class="fa fa-firefox"></span>Cuti</span></a></li>
+              <li class="menu-sidebar"  style="margin-bottom: 10px;"><a href="{{ url('/cuti') }}"><span class="fa fa-firefox"></span>Perizinan</span></a></li>
 
             </ul>
         </li>
@@ -153,7 +153,7 @@
             <ul id="dropdown-lembur" style="display: none;">
               <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/lembur') }}"><span class="fa fa-firefox"></span>Lembur</span></a></li>
               <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/akumulasiLembur') }}"><span class="fa fa-firefox"></span>Akumulasi Lembur</span></a></li>
-              <li class="menu-sidebar"  style="margin-bottom: 10px;"><a href="{{ url('/cuti') }}"><span class="fa fa-firefox"></span>Cuti</span></a></li>
+              <li class="menu-sidebar"  style="margin-bottom: 10px;"><a href="{{ url('/cuti') }}"><span class="fa fa-firefox"></span>Perizinan</span></a></li>
 
             </ul>
         </li>

@@ -68,7 +68,7 @@
 
                                     <td>
                                         @if ($dt->id)
-                                        {{$dt->user_nama}}
+                                        {{$dt->user->nama}}
                                         @endif
                                     </td>
                                     <td>{{ $dt->tanggal }}</td>

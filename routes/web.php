@@ -99,6 +99,7 @@ Route::get('/log_kegiatan/filter', 'App\Http\Controllers\LogKegiatanController@f
 
 // Route::resource('cuti', CutiController::class);
 Route::get('/cuti', 'App\Http\Controllers\CutiController@index');
+Route::get('/izin', 'App\Http\Controllers\CutiController@indexIzin');
 Route::get('/cuti/status/{id}', 'App\Http\Controllers\CutiController@show_approval');
 Route::post('/cuti/status/update/{id}', 'App\Http\Controllers\CutiController@approval');
 Route::get('/cuti/create', 'App\Http\Controllers\CutiController@create');

@@ -21,7 +21,13 @@ class CutiController extends Controller
     }
     public function index(){
         $this->validate();
-        $cuti = Cuti::with('User')->get();
+        $cuti = Cuti::with('User')
+                ->where('type', 1)
+                ->get();
+
+        $izin = Cuti::with('User')
+                ->where('type', 2)
+                ->get();
         $usersId = request()->input('users_id'); // Ambil nilai users_id dari query parameter
 
         if ($usersId) {
@@ -39,7 +45,7 @@ class CutiController extends Controller
             "list" => $cuti,
         ]);
     }
-        return view('Cuti.index', ['data' => $cuti]);
+        return view('Cuti.index', ['data' => $cuti, 'dataIzin' => $izin]);
     }
 
     public function filter(Request $request){
@@ -107,6 +113,7 @@ class CutiController extends Controller
         }
         
         $cutiData->deskripsi = $request->deskripsi;
+        $cutiData->type = $request->type;
         $cutiData->save();
         if (request()->segment(1)=='api') return response()->json([
             "error" => false,

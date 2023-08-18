@@ -46,17 +46,24 @@ class KetidakhadiranController extends Controller
                     ->first();
 
                 if($cuti != null){
-                    DB::table('ketidakhadiran')->insert([
-                        'users_id' => $user->id,
-                        'tanggal' => $tanggalKemarin,
-                        'deskripsi'=> $cuti->deskripsi,
-                    ]);
+                    if($cuti->type == 1) {
+                        DB::table('ketidakhadiran')->insert([
+                            'users_id' => $user->id,
+                            'tanggal' => $tanggalKemarin,
+                            'deskripsi'=> $cuti->deskripsi,
+                        ]);
+                    } else {
+                        DB::table('ketidakhadiran')->insert([
+                            'users_id' => $user->id,
+                            'tanggal' => $tanggalKemarin,
+                            'deskripsi'=> $cuti->deskripsi,
+                        ]);
+                    }
                 }else{
                     DB::table('ketidakhadiran')->insert([
                         'users_id' => $user->id,
                         'tanggal' => $tanggalKemarin,
                     ]);
-
                     $lamaKerja = $this->getLamaKerja();
                     $lamaKerja = $lamaKerja*60;
                     $user->jam_kurang = $user->jam_kurang + $lamaKerja;

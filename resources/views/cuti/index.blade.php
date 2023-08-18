@@ -4,6 +4,12 @@
 
 <div class="row">
     <div class="col-md-12">
+    <div class="box-header">
+                
+                <p>
+                    <a href="/cuti/create" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Form Pengajuan</a>
+                </p>
+            </div>
         <h4>Cuti</h4>
         @if (session('success'))
         <div class="alert alert-success">
@@ -17,12 +23,6 @@
         </div>
         @endif
         <div class="box box-warning">
-            <div class="box-header">
-                
-                <p>
-                    <a href="/cuti/create" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-plus"></i> Form Pengajuan</a>
-                </p>
-            </div>
             <div class="box-body">
                 <form method="GET" action="/cuti/filter">
                     <div class="form-group">
@@ -98,6 +98,69 @@
 
             </div>
         </div>
+        <h4>Izin</h4>
+        @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+        <div class="box box-warning">
+            <div class="box-body">
+                <form method="GET" action="/cuti/filter">
+                    <div class="form-group">
+                        <label for="tanggal-filter-start">Tanggal Awal:</label>
+                        <input type="date" name="start_date" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tanggal-filter-end">Tanggal Akhir:</label>
+                        <input type="date" name="end_date" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
+            </div>
+            <div class="box-body">
+
+                <div class="table-responsive">
+                    <table class="table table-hover myTable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Tanggal Awal</th>
+                                <th>Tanggal Akhir</th>
+                                <th>Lama Izin (hari) </th>
+                                <th>Deskripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($dataIzin as $e=>$dt)
+                            <tr>
+                                <td>{{ $e+1 }}</td>
+
+                                <td>
+                                    @if ($dt->id)
+                                    {{$dt->User->nama}}
+                                    @endif
+                                </td>
+                                <td>{{ $dt->tanggal_awal }}</td>
+                                <td>{{ $dt->tanggal_akhir }}</td>
+                                <td>{{ $dt->jumlah_hari }}</td>
+                                <td>{{ $dt->deskripsi }}</td>
+
+
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
     </div>
 </div>
 
