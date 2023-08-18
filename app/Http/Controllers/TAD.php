@@ -171,21 +171,21 @@ class TAD extends Controller
      * @throws UnrecognizedCommand.
      * @throws UnrecognizedArgument.
      */
-    public function __call($command, array $args)
+    public function __call($method, $parameters)
     {
-        $command_args = count($args) === 0 ? [] : array_shift($args);
+        $command_args = count($parameters) === 0 ? [] : array_shift($args);
 
         $this->check_for_connection() &&
-        $this->check_for_valid_command($command) &&
+        $this->check_for_valid_command($method) &&
         $this->check_for_unrecognized_args($command_args);
 
-        if (in_array($command, TADSoap::get_commands_available())) {
-            $response = $this->execute_command_via_tad_soap($command, $command_args);
+        if (in_array($method, TADSoap::get_commands_available())) {
+            $response = $this->execute_command_via_tad_soap($method, $command_args);
         } else {
-            $response = $this->execute_command_via_zklib($command, $command_args);
+            $response = $this->execute_command_via_zklib($method, $command_args);
         }
 
-        $this->check_for_refresh_tad_db($command);
+        $this->check_for_refresh_tad_db($method);
 
         return $response;
     }

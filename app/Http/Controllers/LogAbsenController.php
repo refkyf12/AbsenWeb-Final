@@ -124,11 +124,15 @@ class LogAbsenController extends Controller
 
 
         if($KurangOrLebih){
+            // dd($KurangOrLebih);
+            $total_kurang = $KurangOrLebih->total_jam_kurang;
+            $total_kurang = $this->jamKeInt($total_kurang)/60;
+            $user->jam_kurang = $user->jam_kurang - $total_kurang;
             $KurangOrLebih->delete();
         }
 
-        if($dataLembur != null){
-            if($dataLembur->status == 1 && $dataLembur->status_kerja == 1){
+        if($dataLembur != null){ // UNTUK DATA ABSEN YANG MEMILIKI LEMBUR
+            if($dataLembur->status == 1 && $dataLembur->status_kerja == 1){ // UNTUK DATA ABSEN YANG MEMILIKI LEMBUR DAN LEMBUR DI KANTOR
 
                 $totalJamLembur = $dataLembur->jumlah_jam;
 
@@ -142,7 +146,7 @@ class LogAbsenController extends Controller
 
                 $lebih = ($jamKeluar-$jamMasuk)-(((int)$this->getLamaKerja())*60);
 
-                if($jamAwalLembur > ($jamMasuk+(((int)$this->getLamaKerja())*60))){
+                if($jamAwalLembur > ($jamMasuk+(((int)$this->getLamaKerja())*60))){ // KASUS JIKA JAM AWAL LEMBUR LEBIH BESAR DARI JAM MASUK
                     $masukLebih1 = ($jamAwalLembur - ($jamMasuk+(((int)$this->getLamaKerja())*60)));
                     $lebih = $lebih - $masukLebih1;
 
@@ -342,9 +346,17 @@ class LogAbsenController extends Controller
                 }
 
             }else{
+                $totalAwal = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
+
+                if ($totalAwal >= ($this->getLamaKerja()*60)){
+                    $totalAwal = $totalAwal - $this->getLamaKerja()*60;
+                    $user->jam_lebih =  $user->jam_lebih - $totalAwal;
+                }
+                
                 $data->jam_masuk = $request->jam_masuk;
                 $data->jam_keluar = $request->jam_keluar;
                 $temp = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
+                $temp1 = $temp;
                 $temp2 = $temp;
 
                 $totalJamLebih = $temp/60;
@@ -374,43 +386,67 @@ class LogAbsenController extends Controller
                 }
 
                 $data->deskripsi = $request->deskripsi;
+
+                if ($temp1 >= ($this->getLamaKerja()*60)){
+                    $temp1 = $temp1 - $this->getLamaKerja()*60;
+                    $user->jam_lebih =  $user->jam_lebih + $temp1;
+                }else{
+                    $temp1 = $this->getLamaKerja()*60 - $temp1;
+                    $user->jam_kurang =  $user->jam_kurang + $temp1;
+                }
             }
 
         }else{
+            $totalAwal = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
+
+            if ($totalAwal >= ($this->getLamaKerja()*60)){
+                $totalAwal = $totalAwal - $this->getLamaKerja()*60;
+                $user->jam_lebih =  $user->jam_lebih - $totalAwal;
+            }
+            
             $data->jam_masuk = $request->jam_masuk;
             $data->jam_keluar = $request->jam_keluar;
             $temp = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
+            $temp1 = $temp;
             $temp2 = $temp;
 
-                $totalJamLebih = $temp/60;
-                $totalJamLebih = (int)$totalJamLebih;
+            $totalJamLebih = $temp/60;
+            $totalJamLebih = (int)$totalJamLebih;
 
-                $totalMenitLebih = ($temp%60);
-            
-                if ($totalJamLebih / 10 < 1){
-                    $totalJamLebih = "0".$totalJamLebih;
-                }
-            
-                if ($totalMenitLebih / 10 < 1){
-                    $totalMenitLebih = "0".$totalMenitLebih;
-                }
-                $temp = $totalJamLebih.":".$totalMenitLebih;
+            $totalMenitLebih = ($temp%60);
+        
+            if ($totalJamLebih / 10 < 1){
+                $totalJamLebih = "0".$totalJamLebih;
+            }
+        
+            if ($totalMenitLebih / 10 < 1){
+                $totalMenitLebih = "0".$totalMenitLebih;
+            }
+            $temp = $totalJamLebih.":".$totalMenitLebih;
 
 
-                $data->total_jam = $temp;
+            $data->total_jam = $temp;
 
-                $lamaKerja = $this->getLamaKerja();
-                $lamaKerja = $lamaKerja * 60;
+            $lamaKerja = $this->getLamaKerja();
+            $lamaKerja = $lamaKerja * 60;
 
-                if($temp2 < $lamaKerja){
-                    $data->keterlambatan = 1;
-                }else{
-                    $data->keterlambatan = 0;
-                }
+            if($temp2 < $lamaKerja){
+                $data->keterlambatan = 1;
+            }else{
+                $data->keterlambatan = 0;
+            }
 
             $data->deskripsi = $request->deskripsi;
-        }
 
+            if ($temp1 >= ($this->getLamaKerja()*60)){
+                $temp1 = $temp1 - $this->getLamaKerja()*60;
+                $user->jam_lebih =  $user->jam_lebih + $temp1;
+            }else{
+                $temp1 = $this->getLamaKerja()*60 - $temp1;
+                $user->jam_kurang =  $user->jam_kurang + $temp1;
+            }
+        }
+        // dd($user, 1);
         $data->update();
         $user->update();
 
