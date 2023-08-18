@@ -61,7 +61,7 @@
     <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
 
     <div class="info-box-content">
-      <span class="info-box-text">Karyawan</span>
+      <span class="info-box-text">Karyawan Tidak Hadir</span>
       <span class="info-box-number">41,410</span>
     </div>
     <!-- /.info-box-content -->

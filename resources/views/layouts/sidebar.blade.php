@@ -5,6 +5,7 @@
       <ul class="sidebar-menu" data-widget="tree">
 
         @if(\Auth::user()->role_id == 1)
+        <li class="menu-sidebar"><a href="{{ url('/dashboard ') }}"><span class="fa fa-firefox"></span>Dashboard</span></a></li>
         
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-pengguna')">
           <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Users ▼</span></a>
