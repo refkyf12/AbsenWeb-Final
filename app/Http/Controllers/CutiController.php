@@ -10,6 +10,7 @@ use App\Models\liburNasional;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\logKegiatan;
+use App\Models\HubunganKerja;
 use Exception;
 
 class CutiController extends Controller
@@ -21,30 +22,38 @@ class CutiController extends Controller
     }
     public function index(){
         $this->validate();
-        $cuti = Cuti::with('User')
+        $cuti;
+        if(Auth::user()->role_id == 1){
+            $cuti = Cuti::with('User')
                 ->where('type', 1)
                 ->get();
 
-        $izin = Cuti::with('User')
+            $izin = Cuti::with('User')
                 ->where('type', 2)
                 ->get();
-        $usersId = request()->input('users_id'); // Ambil nilai users_id dari query parameter
+            $usersId = request()->input('users_id'); // Ambil nilai users_id dari query parameter
 
-        if ($usersId) {
-        // Jika users_id diberikan, ambil data log absen yang sesuai dengan users_id
-            $cuti = Cuti::where('users_id', $usersId)->get();
-        } else {
-        // Jika users_id tidak diberikan, ambil semua data log absen
-            $cuti = Cuti::all();
+            if ($usersId) {
+                // Jika users_id diberikan, ambil data log absen yang sesuai dengan users_id
+                $cuti = Cuti::where('users_id', $usersId)->get();
+            } else {
+                // Jika users_id tidak diberikan, ambil semua data log absen
+                $cuti = Cuti::all();
+            }
+        }else{
+            $hubunganKerja1 = HubunganKerja::where('atasan_id', Auth::id())->select("bawahan_id")->get();
+            $hubunganKerja2 = HubunganKerja::whereIn('atasan_id', $hubunganKerja1)->select("bawahan_id")->get();
+            $cuti1 = Cuti::whereIn('users_id', $hubunganKerja1)->where("status", 1);
+            $cuti = Cuti::whereIn('users_id', $hubunganKerja2)->where("status", 2)->union($cuti1)->get();
         }
 
-    if (request()->segment(1) == 'api') {
-        // Jika permintaan melalui API, kembalikan data dalam bentuk JSON
-        return response()->json([
-            "error" => false,
-            "list" => $cuti,
-        ]);
-    }
+        if(request()->segment(1) == 'api') {
+            // Jika permintaan melalui API, kembalikan data dalam bentuk JSON
+            return response()->json([
+                "error" => false,
+                "list" => $cuti,
+            ]);
+        }
         return view('Cuti.index', ['data' => $cuti, 'dataIzin' => $izin]);
     }
 

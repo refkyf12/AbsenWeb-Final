@@ -107,6 +107,14 @@ Route::get('/cuti/create', 'App\Http\Controllers\CutiController@create');
 Route::post('/cuti/create/store', 'App\Http\Controllers\CutiController@store');
 Route::get('/cuti/filter','App\Http\Controllers\CutiController@filter');
 
+// Hubungan Kerja
+Route::get("/hubungan-kerja", 'App\Http\Controllers\HubunganKerjaController@index');
+Route::get("/hubungan-kerja/create", 'App\Http\Controllers\HubunganKerjaController@create');
+Route::post("/hubungan-kerja/store", 'App\Http\Controllers\HubunganKerjaController@store');
+Route::get('/hubungan-kerja/{id}', 'App\Http\Controllers\HubunganKerjaController@edit');
+Route::put('/hubungan-kerja/{id}', 'App\Http\Controllers\HubunganKerjaController@update');
+Route::delete('/hubungan-kerja/{id}', 'App\Http\Controllers\HubunganKerjaController@delete');
+
 Route::get('/role', 'App\Http\Controllers\RoleController@index');
 Route::get('/role/create', 'App\Http\Controllers\RoleController@create');
 Route::post('/role/create/store', 'App\Http\Controllers\RoleController@store');

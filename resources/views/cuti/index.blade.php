@@ -71,14 +71,17 @@
                                 <td>{{ $dt->jumlah_hari }}</td>
                                 <td>{{ $dt->deskripsi }}</td>
                                 @if($dt->status == 1)
-                                        <td>DISETUJUI</td>
-                                    @endif
-                                    @if($dt->status == 2)
-                                        <td>DITOLAK</td>
-                                    @endif
-                                    @if($dt->status == null)
-                                        <td>BELUM DI PROSES</td>
-                                    @endif
+                                    <td>DISETUJUI Atasan 1</td>
+                                @endif
+                                @if($dt->status == 2)
+                                    <td>DISETUJUI Atasan 2</td>
+                                @endif
+                                @if($dt->status == 3)
+                                    <td>DITOLAK</td>
+                                @endif
+                                @if($dt->status == null)
+                                    <td>BELUM DI PROSES</td>
+                                @endif
                                 @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
                                 <td>
                                     

@@ -71,8 +71,8 @@
                         <br>
                         <select required name="status">
                             <option value="">--pilih--</option>
-                            <option value=1>Disetujui</option>
-                            <option value=2>Ditolak</option>
+                            <option value={{ isset($data) ? ($data->status == 1 ? 2 : 1) : '' }}>Disetujui</option>
+                            <option value=3>Ditolak</option>
                         </select>
                     </div>
                     <div style="text-align: center">
