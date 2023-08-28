@@ -26,6 +26,7 @@
 
 <script src="{{asset('adminlte/bower_components/chart.js/Chart.js')}}"></script>
 <script src="{{asset('adminlte/bower_components/morris.js/morris.js')}}"></script>
+<script src="{{asset('adminlte/bower_components/Flot/jquery.flot.js')}}"></script>
 <script src="{{asset('adminlte/bower_components/raphael/raphael.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
