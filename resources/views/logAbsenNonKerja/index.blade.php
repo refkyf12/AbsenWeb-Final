@@ -19,7 +19,7 @@
         <div class="box box-warning">
             <div class="box-header">
             @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
-                <!-- <form
+                <form
                     class="border"
                     style="padding: 20px"
                     method="POST"
@@ -29,7 +29,7 @@
                 <div style="text-align: center">
                         <button class="btn btn-success">Tambah Data Log Absen (Non Hari Kerja)</button>
                     </div>
-                </form> -->
+                </form>
             @endif
                 <div class="box-body">
                     <form method="GET" action="/filter">

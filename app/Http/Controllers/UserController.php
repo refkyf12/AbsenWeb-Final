@@ -140,10 +140,12 @@ class UserController extends Controller
      */
     public function create()
     {
+        $role = Role::all();
         return view('karyawan.form_add_account', [
             'title' => 'Tambah Karyawan',
             'method' => 'POST',
-            'action' => 'karyawan'
+            'action' => 'karyawan',
+            'role' => $role
         ]); 
     }
 

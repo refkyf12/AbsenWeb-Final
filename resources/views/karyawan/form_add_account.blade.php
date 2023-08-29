@@ -61,12 +61,9 @@
                         <label>Role</label>
                         <br>
                         <select required name="role_id">
-                        <option value="">--pilih--</option>
-                        <option value=0>Karyawan</option>
-                        <option value=1>Admin</option>
-                        <option value=2>Project Manager</option>
-                        <option value=3>HR</option>
-                        <option value=4>Administrasi</option>
+                             @foreach($role as $e=>$roles)
+                                <option value="{{$roles->id}}">{{$roles->nama_role}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div style="text-align: center">
