@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::resource('karyawan', UserController::class);
 Route::post('/authenticate', 'App\Http\Controllers\UserController@authUser');
 Route::post('/cuti/create/store', 'App\Http\Controllers\CutiController@storeMobile');
+Route::get('/libur_nasional', 'App\Http\Controllers\LiburNasionalController@index');
 Route::resource('lebihKerja', LebihKerjaController::class);
 Route::resource('cuti', CutiController::class);
 Route::resource('lembur', LemburController::class);
