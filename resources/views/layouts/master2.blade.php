@@ -128,7 +128,6 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
-    // Tambahkan tombol custom bernama "Download"
 
     $('.myTable').DataTable();
   });

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\AkumulasiTahunan;
 use Illuminate\Http\Request;
 use Exception;
+use App\Models\Numbers;
+use Session;
+use Cache;
 
 class AkumulasiTahunanController extends Controller
 {
@@ -64,5 +67,28 @@ class AkumulasiTahunanController extends Controller
     public function destroy(AkumulasiTahunan $akumulasiTahunan)
     {
         //
+    }
+
+    private $outputNumbers = [];
+    
+    public function getUniqueNumber(Request $request)
+    { 
+        $inputNumber = $request->input('input_number');
+
+        $outputNumbers = Cache::get('output_number', []);
+
+        if (in_array($inputNumber, $outputNumbers)) {
+            $outputNumber = $inputNumber + 1;
+            while (in_array($outputNumber, $outputNumbers)) {
+                $outputNumber++;
+            }
+        } else {
+            $outputNumber = $inputNumber;
+        }
+
+        $outputNumbers[] = $outputNumber;
+        Cache::put('output_number', $outputNumbers);
+
+        return response()->json(['output_number' => $outputNumber]);
     }
 }

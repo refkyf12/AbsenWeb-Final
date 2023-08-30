@@ -57,7 +57,8 @@ class LogAbsenController extends Controller
         $log_absen = logAbsen::where('users_id', $usersId)->get();
     } else {
         // Jika users_id tidak diberikan, ambil semua data log absen
-        $log_absen = logAbsen::all();
+        $log_absen = logAbsen::orderBy('tanggal', 'desc')
+        ->get();
     }
 
     if (request()->segment(1) == 'api') {

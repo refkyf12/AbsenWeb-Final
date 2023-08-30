@@ -27,7 +27,7 @@ class KetidakhadiranController extends Controller
 
     public function store(){
         try{
-        $tanggalKemarin  = date('Y-m-d',strtotime("-1 days"));
+        $tanggalKemarin  = date('Y-m-d',strtotime("-3 days"));
         $users = User::all();
         
         //$tanggalKemarin = '2023-07-17';

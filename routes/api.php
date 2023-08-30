@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\LiburNasionalController;
 use App\Http\Controllers\AbsenNonKerjaController;
+use App\Http\Controllers\AkumulasiTahunanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Route::resource('karyawan', UserController::class);
+Route::post('/get_number', 'App\Http\Controllers\AkumulasiTahunanController@getUniqueNumber');
 Route::post('/authenticate', 'App\Http\Controllers\UserController@authUser');
 Route::post('/cuti/create/store', 'App\Http\Controllers\CutiController@storeMobile');
 Route::get('/libur_nasional', 'App\Http\Controllers\LiburNasionalController@index');

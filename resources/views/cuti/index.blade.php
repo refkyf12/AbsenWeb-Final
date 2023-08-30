@@ -84,11 +84,10 @@
                                 @endif
                                 @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
                                 <td>
-                                    
-                                <div style="width:90px">
-                                            <a href="/cuti/status/{{$dt->id}}" class="btn btn-warning btn-xs btn-edit"
-                                                id="edit"><i class="fa fa-check"></i>Approval</a>
-                                        </div>
+                                    <div style="width:90px">
+                                        <a href="/cuti/status/{{$dt->id}}" class="btn btn-warning btn-xs btn-edit"
+                                            id="edit"><i class="fa fa-check"></i>Approval</a>
+                                    </div>
                                 </td>
                                 @endif
 

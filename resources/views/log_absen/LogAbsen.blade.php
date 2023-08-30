@@ -32,7 +32,7 @@
         @endif
         <div class="box box-warning">
             <div class="box-header">
-                <!-- <form
+                <form
                     class="border"
                     style="padding: 20px"
                     method="POST"
@@ -42,7 +42,7 @@
                 <div style="text-align: center">
                         <button class="btn btn-success">Tambah Data Log absen</button>
                     </div>
-                </form> -->
+                </form>
                 <div class="box-body">
                 @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
                 <form method="post" action="/log_absen/import_excel" enctype="multipart/form-data">

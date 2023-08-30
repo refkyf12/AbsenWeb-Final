@@ -12,6 +12,7 @@
           <ul id="dropdown-pengguna" style="display: none;" data-widget="tree">
             <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/karyawan') }}"><span class="fa fa-firefox"></span>Daftar Users</span></a></li>
             <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/role') }}"><span class="fa fa-firefox"></span>Roles</span></a></li>
+            <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/hubungan-kerja') }}"><span class="fa fa-firefox"></span>Hubungan Kerja</span></a></li>
           </ul>
         </li>
 
