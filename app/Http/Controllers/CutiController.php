@@ -22,15 +22,7 @@ class CutiController extends Controller
     }
     public function index(){
         $this->validate();
-        $cuti;
-        if(Auth::user()->role_id == 1){
-            $cuti = Cuti::with('User')
-                ->where('type', 1)
-                ->get();
-
-            $izin = Cuti::with('User')
-                ->where('type', 2)
-                ->get();
+        if(request()->segment(1) == 'api'){
             $usersId = request()->input('users_id'); // Ambil nilai users_id dari query parameter
 
             if ($usersId) {
@@ -40,22 +32,28 @@ class CutiController extends Controller
                 // Jika users_id tidak diberikan, ambil semua data log absen
                 $cuti = Cuti::all();
             }
-        }else{
-            $hubunganKerja1 = HubunganKerja::where('atasan_id', Auth::id())->select("bawahan_id")->get();
-            $hubunganKerja2 = HubunganKerja::whereIn('atasan_id', $hubunganKerja1)->select("bawahan_id")->get();
-            $cuti1 = Cuti::with('User')->whereIn('users_id', $hubunganKerja1)->where("type", 1)->where("status", NULL);
-            $cuti = Cuti::with('User')->whereIn('users_id', $hubunganKerja2)->where("type", 1)->where("status", 1)->union($cuti1)->get();
-            $izin = Cuti::with('User')->whereIn('users_id', $hubunganKerja1)->where("type", 2)->get();
-        }
-
-        if(request()->segment(1) == 'api') {
-            // Jika permintaan melalui API, kembalikan data dalam bentuk JSON
             return response()->json([
                 "error" => false,
                 "list" => $cuti,
             ]);
+        }else{
+            if(Auth::user()->role_id == 1){
+                $cuti = Cuti::with('User')
+                    ->where('type', 1)
+                    ->get();
+    
+                $izin = Cuti::with('User')
+                    ->where('type', 2)
+                    ->get();
+            }else{
+                $hubunganKerja1 = HubunganKerja::where('atasan_id', Auth::id())->select("bawahan_id")->get();
+                $hubunganKerja2 = HubunganKerja::whereIn('atasan_id', $hubunganKerja1)->select("bawahan_id")->get();
+                $cuti1 = Cuti::with('User')->whereIn('users_id', $hubunganKerja1)->where("type", 1)->where("status", NULL);
+                $cuti = Cuti::with('User')->whereIn('users_id', $hubunganKerja2)->where("type", 1)->where("status", 1)->union($cuti1)->get();
+                $izin = Cuti::with('User')->whereIn('users_id', $hubunganKerja1)->where("type", 2)->get();
+            }
+            return view('Cuti.index', ['data' => $cuti, 'dataIzin' => $izin]);
         }
-        return view('Cuti.index', ['data' => $cuti, 'dataIzin' => $izin]);
     }
 
     public function filter(Request $request){
