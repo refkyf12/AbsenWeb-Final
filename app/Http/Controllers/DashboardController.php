@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\logAbsen;
 use App\Models\Ketidakhadiran;
+use App\Models\Cuti;
+use App\Models\User;
 use Exception;
 
 class DashboardController extends Controller
@@ -15,11 +17,16 @@ class DashboardController extends Controller
         $this->validate();
         // $result=DB::select(DB::raw("select count(*) as total, keterlambatan from log_absen group by keterlambatan"));
         // dd($result);
-        $lateDailyLog = $this->getLateDailyLog();
         $absenceLog = $this->getAbsenceLog();
+        $weeklyAbsenceLog = $this->getWeeklyAbsenceLog() ;
+        $monthlyAbsenceLog = $this->getMonthlyAbsenceLog(); 
+        $lateDailyLog = $this->getLateDailyLog();
         $lateWeeklyLog = $this->getLateWeeklyLog();
         $lateMonthlyLog = $this->getLateMonthlyLog();
-        return view('dashboard', compact('lateDailyLog', 'absenceLog', 'lateWeeklyLog'));
+        $totalCutiLog = $this->getCuti();
+        $totalEmployee = $this->getTotalEmployee();
+        return view('dashboard', compact('lateDailyLog', 'absenceLog', 'weeklyAbsenceLog', 'monthlyAbsenceLog', 
+                        'lateWeeklyLog','lateMonthlyLog', 'lateWeeklyLog', 'totalCutiLog', 'totalEmployee' ));
     }
  
     function getLateDailyLog()
@@ -27,7 +34,7 @@ class DashboardController extends Controller
         $today = date('Y-m-d');
         $query = logAbsen::select('jam_masuk', 'nama')->join('users', 'users.id', 'log_absen.users_id' )
                 ->where('keterlambatan', '=', '1')
-                ->where('tanggal', '=', '2023-07-03');
+                ->where('tanggal', '=', $today);
         $list = $query -> get();
         $count = $query -> count();
         $data = [
@@ -41,11 +48,11 @@ class DashboardController extends Controller
 
     function getLateWeeklyLog()
      {
-        $today = date('Y-m-d');
+        //$today = date('Y-m-d');
         $week = date('Y-m-d', strtotime('-7 days'));
         $query = logAbsen::select('jam_masuk', 'nama')->join('users', 'users.id', 'log_absen.users_id' )
                 ->where('keterlambatan', '=', '1')
-                ->whereBetween('tanggal', [$week, $today]);
+                ->where('tanggal', '=', $week);
         $list = $query -> get();
         $count = $query -> count();
         $data = [
@@ -59,11 +66,11 @@ class DashboardController extends Controller
 
     function getLateMonthlyLog()
      {
-        $today = date('Y-m-d');
-        $week = date('Y-m-d', strtotime('-30 days'));
+        $lastDay = date('Y-m-t');
+        $firstMonth = date('Y-m-01');
         $query = logAbsen::select('jam_masuk', 'nama')->join('users', 'users.id', 'log_absen.users_id' )
                 ->where('keterlambatan', '=', '1')
-                ->whereBetween('tanggal', [$week, $today]);
+                ->whereBetween('tanggal', [$firstMonth, $lastDay]);
         $list = $query -> get();
         $count = $query -> count();
         $data = [
@@ -80,7 +87,7 @@ class DashboardController extends Controller
     {
         $today = date('Y-m-d');
         $query = Ketidakhadiran::select('tanggal', 'nama')->join('users', 'users.id', 'ketidakhadiran.users_id' )
-                ->where('tanggal', '=', '2023-07-03');
+                ->where('tanggal', '=', $today);
         $list = $query -> get();
         $count = $query -> count();
         $data = [
@@ -93,10 +100,10 @@ class DashboardController extends Controller
 
     function getWeeklyAbsenceLog() 
     {
-        $today = date('Y-m-d');
+        // $today = date('Y-m-d');
         $week = date('Y-m-d', strtotime('-7 days'));
         $query = Ketidakhadiran::select('tanggal', 'nama')->join('users', 'users.id', 'ketidakhadiran.users_id' )
-                ->where('tanggal', '=', '2023-07-03');
+                ->where('tanggal', '=', $week);
         $list = $query -> get();
         $count = $query -> count();
         $data = [
@@ -109,9 +116,10 @@ class DashboardController extends Controller
 
     function getMonthlyAbsenceLog() 
     {
-        $today = date('Y-m-d');
+        $lastMonth = date('Y-m-t');
+        $firstDay = date('Y-m-01');
         $query = Ketidakhadiran::select('tanggal', 'nama')->join('users', 'users.id', 'ketidakhadiran.users_id' )
-                ->where('tanggal', '=', '2023-07-03');
+                ->whereBetween('tanggal', [$firstDay, $lastMonth]);
         $list = $query -> get();
         $count = $query -> count();
         $data = [
@@ -121,6 +129,28 @@ class DashboardController extends Controller
 
         return $data;
     }
+
+    function getCuti()
+    {
+        $query = Cuti::select('nama', 'jumlah_hari', 'type', 'deskripsi')->join('users', 'users.id', 'cuti.users_id')
+                    ->where('status', '=', '2');
+        $list = $query -> get();
+        $count = $query -> count();
+        $data = [
+            'list'=> $list,
+            'total'=> $count
+        ];
+
+        return $data;
+    }
+
+    function getTotalEmployee()
+    {
+        $query = User::where('role_id', 0)->count();
+        return $query;
+    }
+
+
     
 
 }
