@@ -73,6 +73,15 @@
                                             </button>
                                         </form>
 
+                                        <form class="border" method="POST" action="/delete/{{$dt->id}}">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE" />
+                                            <button class="btn btn-danger btn-xs btn-hapus"><i
+                                                    class="fa fa-trash-o">Delete</i></button>
+                                        </form>
+
+
+
                                         <button class="btn btn-info btn-xs btn-detail" data-toggle="modal"
                                             data-target="#detailModal{{ $dt->id }}">
                                             <i class="fa fa-info-circle"></i> Lihat Detail
