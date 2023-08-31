@@ -20,6 +20,27 @@
                     action="{{ url('/karyawan/create/store') }}"
                 >
                     @csrf
+
+                    @error('users_id')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+                    @error('nama')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+                    @error('email')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+                    @error('password')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+                    @error('role_id')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
                     <input type="hidden" name="_method" value="{{ $method }}" />
                     <div class="form-group">
                         <label>ID</label>
@@ -49,12 +70,20 @@
                         />
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
+                        <label>Password (Min 8 Characters)</label>
                         <input
                             type="password"
                             name="password"
                             class="form-control"
                             value="{{ isset($data)?$data->password:'' }}"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input
+                            type="password"
+                            name="password_confirmation"
+                            class="form-control"
                         />
                     </div>
                     <div class="form-group">
@@ -89,6 +118,7 @@
             $('.preloader').fadeIn();
             location.reload();
         })
+    });
  
     })
 </script>

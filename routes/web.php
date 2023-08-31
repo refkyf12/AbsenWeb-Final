@@ -130,6 +130,7 @@ Route::get('/akumulasiLembur/filter', 'App\Http\Controllers\LemburController@aku
 Route::get('/akumulasiLembur/detail/{id}', 'App\Http\Controllers\LemburController@showDetailLembur');
 
 Route::get('/ketidakhadiran', 'App\Http\Controllers\KetidakhadiranController@index');
+Route::get('/ketidakhadiran/filter', 'App\Http\Controllers\KetidakhadiranController@filterKetidakhadiran');
 Route::post('/ketidakhadiran/simpan', 'App\Http\Controllers\KetidakhadiranController@store');
 Route::get('/ketidakhadiran/show/{id}', 'App\Http\Controllers\KetidakhadiranController@show_edit');
 Route::post('/ketidakhadiran/update/{id}', 'App\Http\Controllers\KetidakhadiranController@edit');

@@ -147,4 +147,15 @@ class KetidakhadiranController extends Controller
 
         return view('ketidakhadiran.form_edit_ketidakhadiran', compact('data'));
     }
+
+    public function filterKetidakhadiran(Request $request){
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $ketidakhadiran = Ketidakhadiran::whereDate('tanggal','>=',$start_date)->whereDate('tanggal','<=',$end_date)->get();
+
+        //dd($log_absen);
+
+        return view('ketidakhadiran.index', ['data'=>$ketidakhadiran]);
+    }
 }

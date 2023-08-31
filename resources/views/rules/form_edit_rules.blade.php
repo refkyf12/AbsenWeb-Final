@@ -4,7 +4,7 @@
  
 <div class="row">
     <div class="col-md-12">
-        <h4>Edit Karyawan</h4>
+        <h4>Edit Rules</h4>
         <div class="box box-warning">
             <div class="box-header">
                 <p>
@@ -42,7 +42,11 @@
                         />
                     </div>
                     <div class="form-group">
-                        <label>Value</label>
+                    <label>Value</label>
+                    <br>
+                    <span>Format batas_waktu adalah jam. Contoh: 00:00</span>
+                    <br>
+                    <span>Format lama_kerja adalah numeric. Contoh: 8</span>
                         <input
                             type="string"
                             name="value"
