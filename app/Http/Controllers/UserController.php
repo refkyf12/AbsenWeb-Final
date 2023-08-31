@@ -91,7 +91,7 @@ class UserController extends Controller
                 'password' => $request->password
                 ])){
                     session()->put('nama', Auth::user()->name);
-                    return redirect('/log_absen');
+                    return redirect('/dashboard');
             } else {
                 return redirect('/login')->with('error', 'Email/Password salah');   
             }
@@ -127,12 +127,13 @@ class UserController extends Controller
     public function index()
     {
         $karyawan = User::all();
+        $roles = Role::all();
         if(request()-> segment(1) == 'api') return response()->json([
             "error"=>false,
             "list"=>$karyawan,
         ]);
 
-        return view('karyawan.index', ['data' => $karyawan]);
+        return view('karyawan.index', ['data' => $karyawan, 'roles' => $roles]);
     }
 
     /**
@@ -155,6 +156,25 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try{
+
+            $rules = [
+                'users_id' => 'required|string',
+                'nama' => 'required|string',
+                'email' => 'required|string|email',
+                'password' => 'required|string|min:8|confirmed', // Password must be confirmed
+                'role_id' => 'required|numeric',
+            ];
+
+            $messages = [
+                'password.confirmed' => 'The password confirmation does not match.',
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages);
+
+            if ($validator->fails()) {
+                return redirect('/karyawan/create')->withErrors($validator)->withInput();
+            }
+
             $karyawan = new User;
             $karyawan->id = $request->users_id;
             $karyawan->nama = $request->nama;
@@ -194,7 +214,9 @@ class UserController extends Controller
     public function show($users_id)
     {
         $data = User::find($users_id);
-        return view('karyawan.form_edit_account', compact('data'));
+        $role = Role::all();
+        
+        return view('karyawan.form_edit_account', compact('data', 'role'));
     }
 
     /**

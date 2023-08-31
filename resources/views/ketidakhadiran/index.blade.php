@@ -31,7 +31,7 @@
         </div>
         @endif
         <div class="box box-warning">
-            <div class="box-header">
+            <!-- <div class="box-header">
             @if(\Auth::user()->role_id == 1 || \Auth::user()->role_id == 2 || \Auth::user()->role_id == 3)
                 <form
                     class="border"
@@ -44,10 +44,10 @@
                         <button class="btn btn-success">Tambah ketidakhadiran</button>
                     </div>
                 </form>
-                @endif
+                @endif -->
                 <div class="box-body">
 
-                    <form method="GET" action="/filter">
+                    <form method="GET" action="/ketidakhadiran/filter">
                         <div class="form-group">
                             <label for="tanggal-filter-start">Tanggal Awal:</label>
                             <input type="date" name="start_date" class="form-control">
