@@ -17,7 +17,8 @@ class Cuti extends Model
         'tanggal_akhir',
         'jumlah_hari',
         'deskripsi',
-        'status',
+        'type',
+        'status'
     ];
 
     public function user(){
