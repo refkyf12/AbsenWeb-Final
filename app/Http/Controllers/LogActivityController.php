@@ -54,7 +54,7 @@ class LogActivityController extends Controller
 
         $conv = json_decode($data,true);
 
-        $yesterday = date('Y-m-d',strtotime("-4 days"));
+        $yesterday = date('Y-m-d',strtotime("-1 days"));
         foreach ($conv['Row'] as $data){
             $id = $data['PIN'];
             $datetime = $data['DateTime'];

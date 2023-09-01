@@ -74,7 +74,7 @@ class SoapController extends Controller
 
         // $currentDate = getDatetimeNow();
 
-        $yesterday = date('Y-m-d',strtotime("-3 days"));
+        $yesterday = date('Y-m-d',strtotime("-1 days"));
         //$e = 0;
 
         // $yesterday=date('2023-07-11');
