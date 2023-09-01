@@ -8,6 +8,7 @@ use App\Models\logAbsen;
 use App\Models\Ketidakhadiran;
 use App\Models\Cuti;
 use App\Models\User;
+use App\Models\Rules;
 use Exception;
 
 class DashboardController extends Controller
@@ -28,13 +29,21 @@ class DashboardController extends Controller
         return view('dashboard', compact('lateDailyLog', 'absenceLog', 'weeklyAbsenceLog', 'monthlyAbsenceLog', 
                         'lateWeeklyLog','lateMonthlyLog', 'lateWeeklyLog', 'totalCutiLog', 'totalEmployee' ));
     }
+
+    public function getBatasKerja(){
+        $rules = Rules::where('key', "batas_waktu")->first();
+        $batasKerja = $rules["value"];
+        return $batasKerja;
+    }
  
     function getLateDailyLog()
      {
-        $today = date('Y-m-d');
+        $batasKerja = $this->getBatasKerja();
+        $today = date('Y-m-d', strtotime('-1 day'));
         $query = logAbsen::select('jam_masuk', 'nama')->join('users', 'users.id', 'log_absen.users_id' )
-                ->where('keterlambatan', '=', '1')
-                ->where('tanggal', '=', $today);
+                ->where('tanggal', '=', $today)
+                ->whereRaw("STR_TO_DATE(jam_masuk, '%H:%i:%s') > STR_TO_DATE('$batasKerja', '%H:%i:%s')");
+        // dd($query);
         $list = $query -> get();
         $count = $query -> count();
         $data = [
@@ -49,10 +58,12 @@ class DashboardController extends Controller
     function getLateWeeklyLog()
      {
         //$today = date('Y-m-d');
+        $batasKerja = $this->getBatasKerja();
         $week = date('Y-m-d', strtotime('-7 days'));
+        $today = now()->format('Y-m-d');
         $query = logAbsen::select('jam_masuk', 'nama')->join('users', 'users.id', 'log_absen.users_id' )
-                ->where('keterlambatan', '=', '1')
-                ->where('tanggal', '=', $week);
+                ->whereBetween('tanggal', [$week, $today])
+                ->whereRaw("STR_TO_DATE(jam_masuk, '%H:%i:%s') > STR_TO_DATE('$batasKerja', '%H:%i:%s')");
         $list = $query -> get();
         $count = $query -> count();
         $data = [
@@ -66,11 +77,12 @@ class DashboardController extends Controller
 
     function getLateMonthlyLog()
      {
+        $batasKerja = $this->getBatasKerja();
         $lastDay = date('Y-m-t');
         $firstMonth = date('Y-m-01');
         $query = logAbsen::select('jam_masuk', 'nama')->join('users', 'users.id', 'log_absen.users_id' )
-                ->where('keterlambatan', '=', '1')
-                ->whereBetween('tanggal', [$firstMonth, $lastDay]);
+                ->whereBetween('tanggal', [$firstMonth, $lastDay])
+                ->whereRaw("STR_TO_DATE(jam_masuk, '%H:%i:%s') > STR_TO_DATE('$batasKerja', '%H:%i:%s')");
         $list = $query -> get();
         $count = $query -> count();
         $data = [
@@ -85,7 +97,7 @@ class DashboardController extends Controller
 
     function getAbsenceLog() 
     {
-        $today = date('Y-m-d');
+        $today = date('Y-m-d', strtotime('-1 day'));
         $query = Ketidakhadiran::select('tanggal', 'nama')->join('users', 'users.id', 'ketidakhadiran.users_id' )
                 ->where('tanggal', '=', $today);
         $list = $query -> get();
@@ -102,8 +114,9 @@ class DashboardController extends Controller
     {
         // $today = date('Y-m-d');
         $week = date('Y-m-d', strtotime('-7 days'));
+        $today = now()->format('Y-m-d');
         $query = Ketidakhadiran::select('tanggal', 'nama')->join('users', 'users.id', 'ketidakhadiran.users_id' )
-                ->where('tanggal', '=', $week);
+                ->where('tanggal', [$week, $today]);
         $list = $query -> get();
         $count = $query -> count();
         $data = [
