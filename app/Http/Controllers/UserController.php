@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\logKegiatan;
+use App\Models\LogKegiatan;
 use App\Models\Cuti;
 use App\Models\Lembur;
 use App\Models\Rules;
@@ -258,7 +258,7 @@ class UserController extends Controller
                     $karyawan = $request->nama;
                     $date = date("Y-m-d h:i:sa");
                     $text = 'Melakukan Edit Karyawan ' . $karyawan;
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;
