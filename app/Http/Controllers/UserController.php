@@ -193,7 +193,7 @@ class UserController extends Controller
                         $date = date("Y-m-d h:i:sa");
                         $data = $request->nama;
                         $text = 'Melakukan Tambah Karyawan ' . $data;
-                        $logKegiatan = new logKegiatan;
+                        $logKegiatan = new LogKegiatan;
                         $logKegiatan->users_id = $id;
                         $logKegiatan->kegiatan = $text;
                         $logKegiatan->created_at = $date;
@@ -375,7 +375,7 @@ class UserController extends Controller
                     $id = Auth::id();
                     $date = date("Y-m-d h:i:sa");
                     $text = 'Melakukan Reset Pada Karyawan ';
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;
