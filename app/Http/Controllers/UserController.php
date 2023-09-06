@@ -394,20 +394,20 @@ class UserController extends Controller
         try{
             $user = User::find($users_id);
 
-        $temp = $user->jam_kurang - $user->jam_lebih;
-        $temp2 = $this->getLamaKerja();
-        $temp2 = $temp2 * 60;
+            $temp = $user->jam_kurang - $user->jam_lebih;
+            $temp2 = $this->getLamaKerja();
+            $temp2 = $temp2 * 60;
 
-        if($user->jam_kurang > $user->jam_lebih && $temp >= $temp2){
-            $user->jam_kurang = $user->jam_kurang - $temp2;
-            $user->sisa_cuti = $user->sisa_cuti - 1;
+            if($user->jam_kurang > $user->jam_lebih && $temp >= $temp2){
+                $user->jam_kurang = $user->jam_kurang - $temp2;
+                $user->sisa_cuti = $user->sisa_cuti - 1;
 
-            $user->update();
-        }
-        return redirect('/karyawan')->with('success', 'Tambah data berhasil');
+                $user->update();
+            }
+            return redirect('/karyawan')->with('success', 'Cuti berhasil diubah');
         }catch(Exception $e){
             $errorMessage = $e->getMessage();
-            return redirect('/karyawan')->with('error', 'Tambah data gagal');
+            return redirect('/karyawan')->with('error', 'Gagal mengubah');
         }
         
     }
