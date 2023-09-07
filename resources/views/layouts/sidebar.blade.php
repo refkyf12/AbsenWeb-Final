@@ -48,7 +48,8 @@
             @if($_SERVER['REQUEST_URI'] == '/akumulasi' || $_SERVER['REQUEST_URI'] == '/akumulasiLembur' ||
             $_SERVER['REQUEST_URI'] == '/lebihKerja' || $_SERVER['REQUEST_URI'] == '/kurangKerja' ||
             $_SERVER['REQUEST_URI'] == '/akumulasi_tahunan')
-            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Akumulasi Waktu ▼</strong></span></a>
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Akumulasi Waktu
+                    ▼</strong></span></a>
             @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Akumulasi Waktu ▼</span></a>
             @endif
@@ -111,7 +112,11 @@
 
         @if(\Auth::user()->role_id == 2)
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-lembur')">
+            @if($_SERVER['REQUEST_URI'] == '/lembur' || $_SERVER['REQUEST_URI'] == '/cuti')
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Permit ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Permit ▼</span></a>
+            @endif
             <ul id="dropdown-lembur" style="display: none;">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/lembur') }}"><span
                             class="fa fa-firefox"></span>Lembur</span></a></li>
@@ -124,7 +129,11 @@
 
         @if(\Auth::user()->role_id == 3)
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-pengguna')">
+            @if($_SERVER['REQUEST_URI'] == '/karyawan' || $_SERVER['REQUEST_URI'] == '/role' )
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Pengguna ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Pengguna ▼</span></a>
+            @endif
             <ul id="dropdown-pengguna" style="display: none;" data-widget="tree">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/karyawan') }}">Karyawan</a></li>
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/role') }}">Role</a></li>
@@ -132,7 +141,14 @@
         </li>
 
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-kehadiran')">
+            @if($_SERVER['REQUEST_URI'] == '/log_absen' || $_SERVER['REQUEST_URI'] == '/ketidakhadiran' ||
+            $_SERVER['REQUEST_URI'] == '/absen_non_kerja' || $_SERVER['REQUEST_URI'] == '/akumulasi' ||
+            $_SERVER['REQUEST_URI'] == '/lebihKerja || $_SERVER['REQUEST_URI'] == '/kurangKerja' ||
+            $_SERVER['REQUEST_URI'] == '/akumulasi_tahunan')
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Laporan ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Laporan ▼</span></a>
+            @endif
             <ul id="dropdown-kehadiran" style="display: none;" data-widget="tree">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_absen') }}">Daftar Hadir</a>
                 </li>
@@ -153,7 +169,12 @@
         </li>
 
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-lembur')">
+            @if($_SERVER['REQUEST_URI'] == '/lembur' || $_SERVER['REQUEST_URI'] == 'akumulasiLembur' ||
+            $_SERVER['REQUEST_URI'] == '/cuti')
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Permit ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Permit ▼</span></a>
+            @endif
             <ul id="dropdown-lembur" style="display: none;">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/lembur') }}">Lembur</a></li>
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/akumulasiLembur') }}">Akumulasi
@@ -164,7 +185,11 @@
         </li>
 
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-peraturan')">
+            @if($_SERVER['REQUEST_URI'] == '/rules' || $_SERVER['REQUEST_URI'] == '/libur')
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Peraturan ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Peraturan ▼</span></a>
+            @endif
             <ul id="dropdown-peraturan" style="display: none;">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/rules') }}">Jam Kerja</a></li>
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/libur') }}">Libur Nasional</a>
@@ -173,7 +198,11 @@
         </li>
 
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-log')">
+            @if($_SERVER['REQUEST_URI'] == '/log_activity' || $_SERVER['REQUEST_URI'] == '/log_kegiatan')
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Log ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Log ▼</span></a>
+            @endif
             <ul id="dropdown-log" style="display: none;">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_activity') }}">Log
                         Aktivitas</a></li>
@@ -185,7 +214,11 @@
 
         @if(\Auth::user()->role_id == 4)
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-pengguna')">
+            @if($_SERVER['REQUEST_URI'] == '/karyawan' || $_SERVER['REQUEST_URI'] == '/role' )
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Pengguna ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Pengguna ▼</span></a>
+            @endif
             <ul id="dropdown-pengguna" style="display: none;" data-widget="tree">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/karyawan') }}">Karyawan</a></li>
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/role') }}">Role</a></li>
@@ -193,7 +226,14 @@
         </li>
 
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-kehadiran')">
+            @if($_SERVER['REQUEST_URI'] == '/log_absen' || $_SERVER['REQUEST_URI'] == '/ketidakhadiran' ||
+            $_SERVER['REQUEST_URI'] == '/absen_non_kerja' || $_SERVER['REQUEST_URI'] == '/akumulasi' ||
+            $_SERVER['REQUEST_URI'] == '/lebihKerja || $_SERVER['REQUEST_URI'] == '/kurangKerja' ||
+            $_SERVER['REQUEST_URI'] == '/akumulasi_tahunan')
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Laporan ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Laporan ▼</span></a>
+            @endif
             <ul id="dropdown-kehadiran" style="display: none;" data-widget="tree">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_absen') }}">Daftar Hadir</a>
                 </li>
@@ -214,7 +254,12 @@
         </li>
 
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-lembur')">
+            @if($_SERVER['REQUEST_URI'] == '/lembur' || $_SERVER['REQUEST_URI'] == 'akumulasiLembur' ||
+            $_SERVER['REQUEST_URI'] == '/cuti')
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Permit ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Permit ▼</span></a>
+            @endif
             <ul id="dropdown-lembur" style="display: none;">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/lembur') }}">Lembur</a></li>
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/akumulasiLembur') }}">Akumulasi
@@ -225,7 +270,11 @@
         </li>
 
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-peraturan')">
+            @if($_SERVER['REQUEST_URI'] == '/rules' || $_SERVER['REQUEST_URI'] == '/libur')
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Peraturan ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Peraturan ▼</span></a>
+            @endif
             <ul id="dropdown-peraturan" style="display: none;">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/rules') }}">Jam Kerja</a></li>
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/libur') }}">Libur Nasional</a>
@@ -234,7 +283,11 @@
         </li>
 
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-log')">
+            @if($_SERVER['REQUEST_URI'] == '/log_activity' || $_SERVER['REQUEST_URI'] == '/log_kegiatan')
+            <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Log ▼</strong></span></a>
+            @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Log ▼</span></a>
+            @endif
             <ul id="dropdown-log" style="display: none;">
                 <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_activity') }}">Log
                         Aktivitas</a></li>
