@@ -96,7 +96,7 @@ class LemburController extends Controller
                     $date = date("Y-m-d h:i:sa");
                     $data = $request->nama;
                     $text = 'Melakukan Tambah Lembur Karyawan ' . $data;
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;
@@ -520,7 +520,7 @@ class LemburController extends Controller
             $date = date("Y-m-d h:i:sa");
             $data = $request->nama;
             $text = 'Melakukan Tambah Lembur Karyawan ' . $data;
-            $logKegiatan = new logKegiatan;
+            $logKegiatan = new LogKegiatan;
             $logKegiatan->users_id = $id;
             $logKegiatan->kegiatan = $text;
             $logKegiatan->created_at = $date;
