@@ -27,7 +27,7 @@ class DashboardController extends Controller
         $totalCutiLog = $this->getCuti();
         $totalEmployee = $this->getTotalEmployee();
         return view('dashboard', compact('lateDailyLog', 'absenceLog', 'weeklyAbsenceLog', 'monthlyAbsenceLog', 
-                        'lateWeeklyLog','lateMonthlyLog', 'lateWeeklyLog', 'totalCutiLog', 'totalEmployee' ));
+                        'lateWeeklyLog','lateMonthlyLog', 'lateWeeklyLog', 'totalCutiLog', 'totalEmployee'));
     }
 
     public function getBatasKerja(){
