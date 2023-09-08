@@ -62,7 +62,7 @@ class LemburController extends Controller
         }
 
         
-        return view('Lembur.index', ['data' => $lembur]);
+        return view('lembur.index', ['data' => $lembur]);
     }
 
     public function create(){
