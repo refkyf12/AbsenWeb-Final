@@ -6,7 +6,7 @@ use App\Models\liburNasional;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Auth;
-use App\Models\logKegiatan;
+use App\Models\LogKegiatan;
 use Exception;
 
 class LiburNasionalController extends Controller
@@ -54,7 +54,7 @@ class LiburNasionalController extends Controller
                     $date = date("Y-m-d h:i:sa");
                     $data = $request->nama;
                     $text = 'Melakukan Tambah Hari Libur ' . $data;
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;
@@ -113,7 +113,7 @@ class LiburNasionalController extends Controller
                     $data = $request->deskripsi;
                     $date = date("Y-m-d h:i:sa");
                     $text = 'Melakukan Edit Libur Nasional ' . $data;
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;

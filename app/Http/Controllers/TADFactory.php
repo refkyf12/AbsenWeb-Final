@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TAD;
 use App\Providers\TADSoap;
-use App\Providers\TADZKlib;
+use App\Providers\TADZKLib;
 
 class TADFactory extends Controller
 {

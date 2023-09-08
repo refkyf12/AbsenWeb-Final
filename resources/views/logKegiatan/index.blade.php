@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h4>Log Kegiatan</h4>
+        <h4>Log Akses</h4>
         @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -19,7 +19,7 @@
         <div class="box box-warning">
             <div class="box-header">
                 <div class="box-body">
-                    <form method="GET" action="/log_kegiatan/filter">
+                    <form method="GET" action="/log_akses/filter">
                         <div class="form-group">
                             <label for="tanggal-filter-start">Tanggal Awal:</label>
                             <input type="date" name="start_date" class="form-control">

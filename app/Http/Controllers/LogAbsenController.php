@@ -105,103 +105,50 @@ class LogAbsenController extends Controller
     {
         try{
             $data = LogAbsen::find($id);
-        $dataLembur = Lembur::where('users_id', $data->users_id)
-                            ->where('tanggal', $data->tanggal)
-                            ->first(); 
-        $user = User::find($data->users_id);
-        $batasWaktu = $this->getBatasKerja();
-        $batasWaktu = $this->timeToInteger($batasWaktu)/60;
+            $dataLembur = Lembur::where('users_id', $data->users_id)
+                                ->where('tanggal', $data->tanggal)
+                                ->first(); 
+            $user = User::find($data->users_id);
+            $batasWaktu = $this->getBatasKerja();
+            $batasWaktu = $this->timeToInteger($batasWaktu)/60;
 
 
-        $KurangOrLebih = lebihKerja::where('absen_id', $data->id)
-            ->first();
+            $KurangOrLebih = lebihKerja::where('absen_id', $data->id)
+                ->first();
 
-        if($KurangOrLebih){
-            $KurangOrLebih->delete();
-        }
+            if($KurangOrLebih){
+                $KurangOrLebih->delete();
+            }
 
-        $KurangOrLebih = JamKurang::where('absen_id', $data->id)
-            ->first();
-
-
-        if($KurangOrLebih){
-            // dd($KurangOrLebih);
-            $total_kurang = $KurangOrLebih->total_jam_kurang;
-            $total_kurang = $this->jamKeInt($total_kurang)/60;
-            $user->jam_kurang = $user->jam_kurang - $total_kurang;
-            $KurangOrLebih->delete();
-        }
-
-        if($dataLembur != null){ // UNTUK DATA ABSEN YANG MEMILIKI LEMBUR
-            if($dataLembur->status == 1 && $dataLembur->status_kerja == 1){ // UNTUK DATA ABSEN YANG MEMILIKI LEMBUR DAN LEMBUR DI KANTOR
-
-                $totalJamLembur = $dataLembur->jumlah_jam;
-
-                $jamMasuk = $this->timeToInteger($data->jam_masuk)/60;
-                $jamKeluar = $this->timeToInteger($data->jam_keluar)/60;
-                $jamAwalLembur = $this->timeToInteger($dataLembur->jam_awal)/60;
-                $jamAkhirLembur = $this->timeToInteger($dataLembur->jam_akhir)/60;
-
-                $jamMasukKantor = $this->getBatasKerja();
-                $jamMasukKantor = $this->timeToInteger($jamMasukKantor)/60;
-
-                $lebih = ($jamKeluar-$jamMasuk)-(((int)$this->getLamaKerja())*60);
-
-                if($jamAwalLembur > ($jamMasuk+(((int)$this->getLamaKerja())*60))){ // KASUS JIKA JAM AWAL LEMBUR LEBIH BESAR DARI JAM MASUK
-                    $masukLebih1 = ($jamAwalLembur - ($jamMasuk+(((int)$this->getLamaKerja())*60)));
-                    $lebih = $lebih - $masukLebih1;
-
-                    $lebih = $lebih - $totalJamLembur;
-
-                    if($lebih <= 0){
-                        $lebih = 0;
-                    }
-
-                    $user->jam_lebih = $user->jam_lebih - ($masukLebih1 + $lebih);
-                    //------------------------------------------------------------
-
-                    $data->jam_masuk = $request->jam_masuk;
-                    $data->jam_keluar = $request->jam_keluar;
-                    $temp = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
-                    $temp2 = $temp;
-
-                    $totalJamLebih = $temp/60;
-                    $totalJamLebih = (int)$totalJamLebih;
-
-                    $totalMenitLebih = ($temp%60);
-                
-                    if ($totalJamLebih / 10 < 1){
-                        $totalJamLebih = "0".$totalJamLebih;
-                    }
-                
-                    if ($totalMenitLebih / 10 < 1){
-                        $totalMenitLebih = "0".$totalMenitLebih;
-                    }
-                    $temp = $totalJamLebih.":".$totalMenitLebih;
+            $KurangOrLebih = JamKurang::where('absen_id', $data->id)
+                ->first();
 
 
-                    $data->total_jam = $temp;
+            if($KurangOrLebih){
+                // dd($KurangOrLebih);
+                $total_kurang = $KurangOrLebih->total_jam_kurang;
+                $total_kurang = $this->timeToInteger($total_kurang)/60;
+                $user->jam_kurang = $user->jam_kurang - $total_kurang;
+                $KurangOrLebih->delete();
+            }
 
-                    $lamaKerja = $this->getLamaKerja();
-                    $lamaKerja = $lamaKerja * 3600;
+            if($dataLembur != null){ // UNTUK DATA ABSEN YANG MEMILIKI LEMBUR
+                if($dataLembur->status == 1 && $dataLembur->status_kerja == 1){ // UNTUK DATA ABSEN YANG MEMILIKI LEMBUR DAN LEMBUR DI KANTOR
 
-                    if($temp2 < $lamaKerja){
-                        $data->keterlambatan = 1;
-                    }else{
-                        $data->keterlambatan = 0;
-                    }
-
-                    $data->deskripsi = $request->deskripsi;
-
-                    //------------------------------------------------------------
+                    $totalJamLembur = $dataLembur->jumlah_jam;
 
                     $jamMasuk = $this->timeToInteger($data->jam_masuk)/60;
                     $jamKeluar = $this->timeToInteger($data->jam_keluar)/60;
+                    $jamAwalLembur = $this->timeToInteger($dataLembur->jam_awal)/60;
+                    $jamAkhirLembur = $this->timeToInteger($dataLembur->jam_akhir)/60;
+
+                    $jamMasukKantor = $this->getBatasKerja();
+                    $jamMasukKantor = $this->timeToInteger($jamMasukKantor)/60;
 
                     $lebih = ($jamKeluar-$jamMasuk)-(((int)$this->getLamaKerja())*60);
 
-                    if($jamAwalLembur > ($jamMasuk+(((int)$this->getLamaKerja())*60))){
-                        $masukLebih1 = ($jamAwalLembur - ($jamMasuk+(((int)$this->getLamaKerja())*60)));//dari selesai jam kerja hingga jam awal lembur
+                    if($jamAwalLembur > ($jamMasuk+(((int)$this->getLamaKerja())*60))){ // KASUS JIKA JAM AWAL LEMBUR LEBIH BESAR DARI JAM MASUK
+                        $masukLebih1 = ($jamAwalLembur - ($jamMasuk+(((int)$this->getLamaKerja())*60)));
                         $lebih = $lebih - $masukLebih1;
 
                         $lebih = $lebih - $totalJamLembur;
@@ -210,8 +157,90 @@ class LogAbsenController extends Controller
                             $lebih = 0;
                         }
 
-                        $user->jam_lebih = $user->jam_lebih + ($masukLebih1 + $lebih);
-                    }else if($jamAwalLembur < $jamMasukKantor){
+                        $user->jam_lebih = $user->jam_lebih - ($masukLebih1 + $lebih);
+                        //------------------------------------------------------------
+
+                        $data->jam_masuk = $request->jam_masuk;
+                        $data->jam_keluar = $request->jam_keluar;
+                        $temp = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
+                        $temp2 = $temp;
+
+                        $totalJamLebih = $temp/60;
+                        $totalJamLebih = (int)$totalJamLebih;
+
+                        $totalMenitLebih = ($temp%60);
+                    
+                        if ($totalJamLebih / 10 < 1){
+                            $totalJamLebih = "0".$totalJamLebih;
+                        }
+                    
+                        if ($totalMenitLebih / 10 < 1){
+                            $totalMenitLebih = "0".$totalMenitLebih;
+                        }
+                        $temp = $totalJamLebih.":".$totalMenitLebih;
+
+
+                        $data->total_jam = $temp;
+
+                        $lamaKerja = $this->getLamaKerja();
+                        $lamaKerja = $lamaKerja * 3600;
+
+                        if($temp2 < $lamaKerja){
+                            $data->keterlambatan = 1;
+                        }else{
+                            $data->keterlambatan = 0;
+                        }
+
+                        $data->deskripsi = $request->deskripsi;
+
+                        //------------------------------------------------------------
+
+                        $jamMasuk = $this->timeToInteger($data->jam_masuk)/60;
+                        $jamKeluar = $this->timeToInteger($data->jam_keluar)/60;
+
+                        $lebih = ($jamKeluar-$jamMasuk)-(((int)$this->getLamaKerja())*60);
+
+                        if($jamAwalLembur > ($jamMasuk+(((int)$this->getLamaKerja())*60))){
+                            $masukLebih1 = ($jamAwalLembur - ($jamMasuk+(((int)$this->getLamaKerja())*60)));//dari selesai jam kerja hingga jam awal lembur
+                            $lebih = $lebih - $masukLebih1;
+
+                            $lebih = $lebih - $totalJamLembur;
+
+                            if($lebih <= 0){
+                                $lebih = 0;
+                            }
+
+                            $user->jam_lebih = $user->jam_lebih + ($masukLebih1 + $lebih);
+                        }else if($jamAwalLembur < $jamMasukKantor){
+                            $lebih1 = ($jamAwalLembur - $jamMasuk);
+
+                            if($lebih1 < 0){
+                                $lebih1 = 0;
+                            }
+
+                            if($jamAkhirLembur > $jamMasuk){
+                                $lebih2 = $jamMasukKantor - $jamAkhirLembur;
+                            }else{
+                                $lebih2 = $jamAkhirLembur - $jamMasukKantor;
+                            }
+                            
+
+                            if($lebih2 < 0){
+                                $lebih2 = 0;
+                            }
+
+                            $lebih = $lebih - ($lebih1 + $lebih2 + $totalJamLembur);
+
+                            if($lebih < 0){
+                                $lebih = 0;
+                            }
+
+                            $user->jam_lebih = $user->jam_lebih + ($lebih1 + $lebih2 + $lebih);
+                        }
+
+                    }
+
+                    if($jamAwalLembur < $jamMasukKantor){
                         $lebih1 = ($jamAwalLembur - $jamMasuk);
 
                         if($lebih1 < 0){
@@ -219,6 +248,7 @@ class LogAbsenController extends Controller
                         }
 
                         if($jamAkhirLembur > $jamMasuk){
+                            
                             $lebih2 = $jamMasukKantor - $jamAkhirLembur;
                         }else{
                             $lebih2 = $jamAkhirLembur - $jamMasukKantor;
@@ -235,41 +265,99 @@ class LogAbsenController extends Controller
                             $lebih = 0;
                         }
 
-                        $user->jam_lebih = $user->jam_lebih + ($lebih1 + $lebih2 + $lebih);
+                        $user->jam_lebih = $user->jam_lebih - ($lebih1 + $lebih2 + $lebih);
+                        //-----------------------------------------------------------------
+                        $data->jam_masuk = $request->jam_masuk;
+                        $data->jam_keluar = $request->jam_keluar;
+                        $temp = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
+                        $temp2 = $temp;
+
+                        $totalJamLebih = $temp/60;
+                        $totalJamLebih = (int)$totalJamLebih;
+
+                        $totalMenitLebih = ($temp%60);
+                    
+                        if ($totalJamLebih / 10 < 1){
+                            $totalJamLebih = "0".$totalJamLebih;
+                        }
+                    
+                        if ($totalMenitLebih / 10 < 1){
+                            $totalMenitLebih = "0".$totalMenitLebih;
+                        }
+                        $temp = $totalJamLebih.":".$totalMenitLebih;
+
+
+                        $data->total_jam = $temp;
+
+                        $lamaKerja = $this->getLamaKerja();
+                        $lamaKerja = $lamaKerja * 60;
+
+                        if($temp2 < $lamaKerja){
+                            $data->keterlambatan = 1;
+                        }else{
+                            $data->keterlambatan = 0;
+                        }
+
+                        $data->deskripsi = $request->deskripsi;
+
+                        //------------------------------------------------------------
+
+                        $jamMasuk = $this->timeToInteger($data->jam_masuk)/60;
+                        $jamKeluar = $this->timeToInteger($data->jam_keluar)/60;
+
+                        $lebih = ($jamKeluar-$jamMasuk)-(((int)$this->getLamaKerja())*60);
+
+                        if($jamAwalLembur > ($jamMasuk+(((int)$this->getLamaKerja())*60))){
+                            $masukLebih1 = ($jamAwalLembur - ($jamMasuk+(((int)$this->getLamaKerja())*60)));//dari selesai jam kerja hingga jam awal lembur
+                            $lebih = $lebih - $masukLebih1;
+
+                            $lebih = $lebih - $totalJamLembur;
+
+                            if($lebih <= 0){
+                                $lebih = 0;
+                            }
+
+                            $user->jam_lebih = $user->jam_lebih + ($masukLebih1 + $lebih);
+                        }else if($jamAwalLembur < $jamMasukKantor){
+                            $lebih1 = ($jamAwalLembur - $jamMasuk);
+
+                            if($lebih1 < 0){
+                                $lebih1 = 0;
+                            }
+
+                            if($jamAkhirLembur > $jamMasuk){
+                                $lebih2 = $jamMasukKantor - $jamAkhirLembur;
+                            }else{
+                                $lebih2 = $jamAkhirLembur - $jamMasukKantor;
+                            }
+                            
+
+                            if($lebih2 < 0){
+                                $lebih2 = 0;
+                            }
+
+                            $lebih = $lebih - ($lebih1 + $lebih2 + $totalJamLembur);
+
+                            if($lebih < 0){
+                                $lebih = 0;
+                            }
+
+                            $user->jam_lebih = $user->jam_lebih + ($lebih1 + $lebih2 + $lebih);
+                        }
                     }
 
-                }
+                }else{
+                    $totalAwal = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
 
-                if($jamAwalLembur < $jamMasukKantor){
-                    $lebih1 = ($jamAwalLembur - $jamMasuk);
-
-                    if($lebih1 < 0){
-                        $lebih1 = 0;
-                    }
-
-                    if($jamAkhirLembur > $jamMasuk){
-                        
-                        $lebih2 = $jamMasukKantor - $jamAkhirLembur;
-                    }else{
-                        $lebih2 = $jamAkhirLembur - $jamMasukKantor;
+                    if ($totalAwal >= ($this->getLamaKerja()*60)){
+                        $totalAwal = $totalAwal - $this->getLamaKerja()*60;
+                        $user->jam_lebih =  $user->jam_lebih - $totalAwal;
                     }
                     
-
-                    if($lebih2 < 0){
-                        $lebih2 = 0;
-                    }
-
-                    $lebih = $lebih - ($lebih1 + $lebih2 + $totalJamLembur);
-
-                    if($lebih < 0){
-                        $lebih = 0;
-                    }
-
-                    $user->jam_lebih = $user->jam_lebih - ($lebih1 + $lebih2 + $lebih);
-                    //-----------------------------------------------------------------
                     $data->jam_masuk = $request->jam_masuk;
                     $data->jam_keluar = $request->jam_keluar;
                     $temp = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
+                    $temp1 = $temp;
                     $temp2 = $temp;
 
                     $totalJamLebih = $temp/60;
@@ -300,49 +388,12 @@ class LogAbsenController extends Controller
 
                     $data->deskripsi = $request->deskripsi;
 
-                    //------------------------------------------------------------
-
-                    $jamMasuk = $this->timeToInteger($data->jam_masuk)/60;
-                    $jamKeluar = $this->timeToInteger($data->jam_keluar)/60;
-
-                    $lebih = ($jamKeluar-$jamMasuk)-(((int)$this->getLamaKerja())*60);
-
-                    if($jamAwalLembur > ($jamMasuk+(((int)$this->getLamaKerja())*60))){
-                        $masukLebih1 = ($jamAwalLembur - ($jamMasuk+(((int)$this->getLamaKerja())*60)));//dari selesai jam kerja hingga jam awal lembur
-                        $lebih = $lebih - $masukLebih1;
-
-                        $lebih = $lebih - $totalJamLembur;
-
-                        if($lebih <= 0){
-                            $lebih = 0;
-                        }
-
-                        $user->jam_lebih = $user->jam_lebih + ($masukLebih1 + $lebih);
-                    }else if($jamAwalLembur < $jamMasukKantor){
-                        $lebih1 = ($jamAwalLembur - $jamMasuk);
-
-                        if($lebih1 < 0){
-                            $lebih1 = 0;
-                        }
-
-                        if($jamAkhirLembur > $jamMasuk){
-                            $lebih2 = $jamMasukKantor - $jamAkhirLembur;
-                        }else{
-                            $lebih2 = $jamAkhirLembur - $jamMasukKantor;
-                        }
-                        
-
-                        if($lebih2 < 0){
-                            $lebih2 = 0;
-                        }
-
-                        $lebih = $lebih - ($lebih1 + $lebih2 + $totalJamLembur);
-
-                        if($lebih < 0){
-                            $lebih = 0;
-                        }
-
-                        $user->jam_lebih = $user->jam_lebih + ($lebih1 + $lebih2 + $lebih);
+                    if ($temp1 >= ($this->getLamaKerja()*60)){
+                        $temp1 = $temp1 - $this->getLamaKerja()*60;
+                        $user->jam_lebih =  $user->jam_lebih + $temp1;
+                    }else{
+                        $temp1 = $this->getLamaKerja()*60 - $temp1;
+                        $user->jam_kurang =  $user->jam_kurang + $temp1;
                     }
                 }
 
@@ -396,115 +447,64 @@ class LogAbsenController extends Controller
                     $user->jam_kurang =  $user->jam_kurang + $temp1;
                 }
             }
+            // dd($user, 1);
+            $data->update();
+            $user->update();
 
-        }else{
-            $totalAwal = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
+            $lebihOrKurang = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
 
-            if ($totalAwal >= ($this->getLamaKerja()*60)){
-                $totalAwal = $totalAwal - $this->getLamaKerja()*60;
-                $user->jam_lebih =  $user->jam_lebih - $totalAwal;
-            }
-            
-            $data->jam_masuk = $request->jam_masuk;
-            $data->jam_keluar = $request->jam_keluar;
-            $temp = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
-            $temp1 = $temp;
-            $temp2 = $temp;
-
-            $totalJamLebih = $temp/60;
-            $totalJamLebih = (int)$totalJamLebih;
-
-            $totalMenitLebih = ($temp%60);
+            if($lebihOrKurang >= $this->getLamaKerja()*60){
+                $totalLebih = $lebihOrKurang + ((int)$this->getLamaKerja())*60;
         
-            if ($totalJamLebih / 10 < 1){
-                $totalJamLebih = "0".$totalJamLebih;
-            }
+                        $totalJamForLebih = $totalLebih;
+                    
+                        $totalJamForLebih = $totalLebih/60;
+                        $totalJamForLebih = (int)$totalJamForLebih;
+                    
+                        $totalMenitLebih = $totalLebih%60;
+                    
+                        if ($totalJamForLebih / 10 < 1){
+                            $totalJamForLebih = "0".$totalJamForLebih;
+                        }
+                    
+                        if ($totalMenitLebih / 10 < 1){
+                            $totalMenitLebih = "0".$totalMenitLebih;
+                        }
+                    
+                        $totalKurang = $totalJamForLebih.":".$totalMenitLebih;
         
-            if ($totalMenitLebih / 10 < 1){
-                $totalMenitLebih = "0".$totalMenitLebih;
-            }
-            $temp = $totalJamLebih.":".$totalMenitLebih;
+                        lebihKerja::create([
+                            'users_id' => $data->users_id,
+                            'absen_id' => $data->id,
+                            'total_jam' => $totalKurang,
+                        ]);
 
-
-            $data->total_jam = $temp;
-
-            $lamaKerja = $this->getLamaKerja();
-            $lamaKerja = $lamaKerja * 60;
-
-            if($temp2 < $lamaKerja){
-                $data->keterlambatan = 1;
             }else{
-                $data->keterlambatan = 0;
+                $totalKurang = ((int)$this->getLamaKerja())*60 - $lebihOrKurang;
+        
+                        $totalJamForKurang = $totalKurang;
+                    
+                        $totalJamForKurang = $totalKurang/60;
+                        $totalJamForKurang = (int)$totalJamForKurang;
+                    
+                        $totalMenitKurang = $totalKurang%60;
+                    
+                        if ($totalJamForKurang / 10 < 1){
+                            $totalJamForKurang = "0".$totalJamForKurang;
+                        }
+                    
+                        if ($totalMenitKurang / 10 < 1){
+                            $totalMenitKurang = "0".$totalMenitKurang;
+                        }
+                    
+                        $totalKurang = $totalJamForKurang.":".$totalMenitKurang;
+        
+                        JamKurang::create([
+                            'users_id' => $data->users_id,
+                            'absen_id' => $data->id,
+                            'total_jam_kurang' => $totalKurang,
+                        ]);
             }
-
-            $data->deskripsi = $request->deskripsi;
-
-            if ($temp1 >= ($this->getLamaKerja()*60)){
-                $temp1 = $temp1 - $this->getLamaKerja()*60;
-                $user->jam_lebih =  $user->jam_lebih + $temp1;
-            }else{
-                $temp1 = $this->getLamaKerja()*60 - $temp1;
-                $user->jam_kurang =  $user->jam_kurang + $temp1;
-            }
-        }
-        // dd($user, 1);
-        $data->update();
-        $user->update();
-
-        $lebihOrKurang = ($this->timeToInteger($data->jam_keluar) - $this->timeToInteger($data->jam_masuk))/60;
-
-        if($lebihOrKurang >= $this->getLamaKerja()*60){
-            $totalLebih = $lebihOrKurang + ((int)$this->getLamaKerja())*60;
-    
-                    $totalJamForLebih = $totalLebih;
-                
-                    $totalJamForLebih = $totalLebih/60;
-                    $totalJamForLebih = (int)$totalJamForLebih;
-                
-                    $totalMenitLebih = $totalLebih%60;
-                
-                    if ($totalJamForLebih / 10 < 1){
-                        $totalJamForLebih = "0".$totalJamForLebih;
-                    }
-                
-                    if ($totalMenitLebih / 10 < 1){
-                        $totalMenitLebih = "0".$totalMenitLebih;
-                    }
-                
-                    $totalKurang = $totalJamForLebih.":".$totalMenitLebih;
-    
-                    lebihKerja::create([
-                        'users_id' => $data->users_id,
-                        'absen_id' => $data->id,
-                        'total_jam' => $totalKurang,
-                    ]);
-
-        }else{
-            $totalKurang = ((int)$this->getLamaKerja())*60 - $lebihOrKurang;
-    
-                    $totalJamForKurang = $totalKurang;
-                
-                    $totalJamForKurang = $totalKurang/60;
-                    $totalJamForKurang = (int)$totalJamForKurang;
-                
-                    $totalMenitKurang = $totalKurang%60;
-                
-                    if ($totalJamForKurang / 10 < 1){
-                        $totalJamForKurang = "0".$totalJamForKurang;
-                    }
-                
-                    if ($totalMenitKurang / 10 < 1){
-                        $totalMenitKurang = "0".$totalMenitKurang;
-                    }
-                
-                    $totalKurang = $totalJamForKurang.":".$totalMenitKurang;
-    
-                    JamKurang::create([
-                        'users_id' => $data->users_id,
-                        'absen_id' => $data->id,
-                        'total_jam_kurang' => $totalKurang,
-                    ]);
-        }
 
         return redirect('/log_absen')->with('success', 'Data berhasil diperbarui');
         }catch(Exception $e){

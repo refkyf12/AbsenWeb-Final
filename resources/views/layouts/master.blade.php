@@ -126,6 +126,12 @@
 
 @include('layouts.script')
 
+<style>
+  .dt-button-collection{
+    margin-top: 10px !important;
+  }
+</style>
+
 <script type="text/javascript">
   $(document).ready(function () {
     // Tambahkan tombol custom bernama "Download"
@@ -138,18 +144,38 @@
         {
           extend: 'csv',
           text: 'CSV',
+          exportOptions: {
+            columns: function (idx, data, node){
+              return node.innerHTML !== 'Action'
+            }
+          }
         },
         {
           extend: 'excel',
           text: 'Excel',
+          exportOptions: {
+            columns: function (idx, data, node){
+              return node.innerHTML !== 'Action'
+            }
+          }
         },
         {
           extend: 'pdf',
           text: 'PDF',
+          exportOptions: {
+            columns: function (idx, data, node){
+              return node.innerHTML !== 'Action'
+            }
+          }
         },
         {
           extend: 'print',
           text: 'Print',
+          exportOptions: {
+            columns: function (idx, data, node){
+              return node.innerHTML !== 'Action'
+            }
+          }
         },
       ],
     };
