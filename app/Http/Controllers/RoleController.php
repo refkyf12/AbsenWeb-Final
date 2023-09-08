@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
-use App\Models\logKegiatan;
+use App\Models\LogKegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -50,7 +50,7 @@ class RoleController extends Controller
                     $date = date("Y-m-d h:i:sa");
                     $data = $request->nama_role;
                     $text = 'Melakukan Tambah Role ' . $data;
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;
@@ -101,7 +101,7 @@ class RoleController extends Controller
                     $data = $request->nama_role;
                     $date = date("Y-m-d h:i:sa");
                     $text = 'Melakukan Edit Role ' . $data;
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;
