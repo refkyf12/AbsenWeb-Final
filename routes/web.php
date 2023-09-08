@@ -37,8 +37,8 @@ Route::post('/soap_activity', 'App\Http\Controllers\LogActivityController@store'
 Route::post('/soap_data', 'App\Http\Controllers\SoapController@logAbsenStore');
 Route::post('/soap_non_kerja', 'App\Http\Controllers\AbsenNonKerjaController@logAbsenNonKerja');
 Route::post('/soap_data_july', 'App\Http\Controllers\SoapController@getJulyData');
-Route::get('/log_activity', 'App\Http\Controllers\LogActivityController@index');
-Route::get('/log_activity/filter', 'App\Http\Controllers\LogActivityController@filter');
+Route::get('/log_aktifitas', 'App\Http\Controllers\LogActivityController@index');
+Route::get('/log_aktifitas/filter', 'App\Http\Controllers\LogActivityController@filter');
 Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
 
 
@@ -95,8 +95,8 @@ Route::post('/libur/update/{id}', 'App\Http\Controllers\LiburNasionalController@
 
 Route::get('/akumulasi_tahunan', 'App\Http\Controllers\AkumulasiTahunanController@index');
 
-Route::get('/log_kegiatan', 'App\Http\Controllers\LogKegiatanController@index');
-Route::get('/log_kegiatan/filter', 'App\Http\Controllers\LogKegiatanController@filter');
+Route::get('/log_akses', 'App\Http\Controllers\LogKegiatanController@index');
+Route::get('/log_akses/filter', 'App\Http\Controllers\LogKegiatanController@filter');
 
 // Route::resource('cuti', CutiController::class);
 Route::get('/cuti', 'App\Http\Controllers\CutiController@index');

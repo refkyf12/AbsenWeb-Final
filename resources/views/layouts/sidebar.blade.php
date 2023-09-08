@@ -93,15 +93,15 @@
         </li>
 
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-log')">
-            @if($_SERVER['REQUEST_URI'] == '/log_activity' || $_SERVER['REQUEST_URI'] == '/log_kegiatan')
+            @if($_SERVER['REQUEST_URI'] == '/log_aktifitas' || $_SERVER['REQUEST_URI'] == '/log_akses')
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span><strong>Log ▼</strong></span></a>
             @else
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Log ▼</span></a>
             @endif
             <ul id="dropdown-log" style="display: none;">
-                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_activity') }}">Log
-                        Aktivitas</a></li>
-                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_kegiatan') }}"></span>Log
+                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_aktifitas') }}">Log
+                        Aktifitas</a></li>
+                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_akses') }}"></span>Log
                         Akses</a></li>
             </ul>
         </li>
@@ -175,10 +175,10 @@
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-log')">
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Log ▼</span></a>
             <ul id="dropdown-log" style="display: none;">
-                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_activity') }}">Log
-                        Aktivitas</a></li>
-                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_kegiatan') }}">Log
-                        Kegiatan</a></li>
+                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_aktifitas') }}">Log
+                        Aktifitas</a></li>
+                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_akses') }}">Log
+                        Akses</a></li>
             </ul>
         </li>
         @endif
@@ -236,10 +236,10 @@
         <li class="menu-sidebar" onclick="toggleDropdown('dropdown-log')">
             <a href="javascript:void(0)"><span class="fa fa-firefox"></span>Log ▼</span></a>
             <ul id="dropdown-log" style="display: none;">
-                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_activity') }}">Log
-                        Aktivitas</a></li>
-                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_kegiatan') }}">Log
-                        Kegiatan</a></li>
+                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_aktifitas') }}">Log
+                        Aktifitas</a></li>
+                <li class="menu-sidebar" style="margin-bottom: 10px;"><a href="{{ url('/log_akses') }}">Log
+                        Akses</a></li>
             </ul>
         </li>
         @endif
