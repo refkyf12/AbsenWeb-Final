@@ -70,10 +70,10 @@ class LogActivityController extends Controller
 
             
         }
-        return redirect('/log_activity')->with('success', 'Berhasil mengambil data');
+        return redirect('/log_aktifitas')->with('success', 'Berhasil mengambil data');
         }catch(Exception $e){
             $errorMessage = $e->getMessage();
-            return redirect('/log_activity')->with('error', 'Gagal mengambil data. Error : ' . $errorMessage);
+            return redirect('/log_aktifitas')->with('error', 'Gagal mengambil data. Error : ' . $errorMessage);
         }
         
     }
