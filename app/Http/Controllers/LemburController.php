@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\Rules;
 use App\Traits\jamKeInt;
 use DB;
-use App\Models\logKegiatan;
+use App\Models\LogKegiatan;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
