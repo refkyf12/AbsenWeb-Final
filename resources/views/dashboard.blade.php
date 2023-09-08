@@ -308,7 +308,7 @@
 
         <div class="col-12 col-sm-6 col-md-4">
             <div class="info-box mb-3" data-toggle="modal" data-target="#modalTerlambat">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
+                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-clock-o"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Karyawan Terlambat</span>
@@ -321,7 +321,7 @@
 
         <div class="col-12 col-sm-6 col-md-4">
             <div class="info-box mb-3" data-toggle="modal" data-target="#modalAbsen">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
+                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-times-circle-o"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Karyawan Tidak Masuk</span>
@@ -334,7 +334,7 @@
 
         <div class="col-12 col-sm-6 col-md-4">
             <div class="info-box mb-3" data-toggle="modal" data-target="#modalCuti">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
+                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-envelope-open"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Karyawan Cuti</span>
