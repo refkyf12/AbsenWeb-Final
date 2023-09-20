@@ -54,7 +54,7 @@ class LogActivityController extends Controller
 
         $conv = json_decode($data,true);
 
-        $yesterday = date('Y-m-d',strtotime("-4 days"));
+        $yesterday = date('Y-m-d',strtotime("-1 days"));
         foreach ($conv['Row'] as $data){
             $id = $data['PIN'];
             $datetime = $data['DateTime'];
@@ -70,10 +70,10 @@ class LogActivityController extends Controller
 
             
         }
-        return redirect('/log_activity')->with('success', 'Berhasil mengambil data');
+        return redirect('/log_aktifitas')->with('success', 'Berhasil mengambil data');
         }catch(Exception $e){
             $errorMessage = $e->getMessage();
-            return redirect('/log_activity')->with('error', 'Gagal mengambil data. Error : ' . $errorMessage);
+            return redirect('/log_aktifitas')->with('error', 'Gagal mengambil data. Error : ' . $errorMessage);
         }
         
     }

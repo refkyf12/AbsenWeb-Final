@@ -69,9 +69,18 @@
                                         <form class="border" method="GET" action="/karyawan/{{$dt->id}}">
                                             @csrf
                                             <button class="btn btn-warning btn-xs btn-edit">
-                                                <i class="fa fa-trash-o"></i> Edit
+                                                <i class="fa fa-pencil"></i> Edit
                                             </button>
                                         </form>
+
+                                        <!-- <form class="border" method="POST" action="/delete/{{$dt->id}}">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE" />
+                                            <button class="btn btn-danger btn-xs btn-hapus"><i
+                                                    class="fa fa-trash-o">Delete</i></button>
+                                        </form> -->
+
+
 
                                         <button class="btn btn-info btn-xs btn-detail" data-toggle="modal"
                                             data-target="#detailModal{{ $dt->id }}">
@@ -143,7 +152,7 @@
                     @endforeach
 
                 </div>
-                <a href="/reset" class="btn btn-sm btn-flat btn-Danger"><i class="fa fa-trash-o"></i> RESET</a>
+                <!-- <a href="/reset" class="btn btn-sm btn-flat btn-Danger"><i class="fa fa-trash-o"></i> RESET</a> -->
 
             </div>
         </div>
@@ -170,7 +179,5 @@
             // Hide any previously shown modals
             $('.modal').modal('hide');
         });
-
     })
-
 </script>

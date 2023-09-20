@@ -18,9 +18,12 @@
         @endif
         <div class="box box-warning">
             <div class="box-header">
-                <p>
-                    <button class="btn btn-sm btn-flat btn-warning btn-refresh"><i class="fa fa-refresh"></i> Refresh</button>
-                </p>
+                <form class="border" method="GET" action="{{$_SERVER['REQUEST_URI']}}">
+                    @csrf
+                    <button class="btn btn-sm btn-flat btn-warning btn-refresh">
+                        <i class="fa fa-refresh"></i> Refresh
+                    </button>
+                </form>
             </div>
             <div class="box-body">
                

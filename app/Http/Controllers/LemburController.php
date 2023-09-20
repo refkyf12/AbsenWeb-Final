@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\Rules;
 use App\Traits\jamKeInt;
 use DB;
-use App\Models\logKegiatan;
+use App\Models\LogKegiatan;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 
@@ -62,7 +62,7 @@ class LemburController extends Controller
         }
 
         
-        return view('Lembur.index', ['data' => $lembur]);
+        return view('lembur.index', ['data' => $lembur]);
     }
 
     public function create(){
@@ -96,7 +96,7 @@ class LemburController extends Controller
                     $date = date("Y-m-d h:i:sa");
                     $data = $request->nama;
                     $text = 'Melakukan Tambah Lembur Karyawan ' . $data;
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;
@@ -520,7 +520,7 @@ class LemburController extends Controller
             $date = date("Y-m-d h:i:sa");
             $data = $request->nama;
             $text = 'Melakukan Tambah Lembur Karyawan ' . $data;
-            $logKegiatan = new logKegiatan;
+            $logKegiatan = new LogKegiatan;
             $logKegiatan->users_id = $id;
             $logKegiatan->kegiatan = $text;
             $logKegiatan->created_at = $date;

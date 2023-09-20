@@ -26,31 +26,31 @@ class Kernel extends ConsoleKernel
         if ($hari === "0"||$hari === "6"){
             $schedule->call('App\Http\Controllers\AbsenNonKerjaController@logAbsenNonKerja')
                 ->timezone('Asia/Jakarta')
-                ->dailyAt('01:00');
+                ->dailyAt('08:00');
             $schedule->call('App\Http\Controllers\LogActivityController@store')
                 ->timezone('Asia/Jakarta')
-                ->dailyAt('01:04');
+                ->dailyAt('08:10');
         } else {
             if (in_array($tanggal, $liburNasionalDates)){
                 $schedule->call('App\Http\Controllers\AbsenNonKerjaController@logAbsenNonKerja')
                     ->timezone('Asia/Jakarta')
-                    ->dailyAt('01:00');
+                    ->dailyAt('08:00');
                 $schedule->call('App\Http\Controllers\LogActivityController@store')
                     ->timezone('Asia/Jakarta')
-                    ->dailyAt('01:04');
+                    ->dailyAt('08:10');
 
             }else{
                 $schedule->call('App\Http\Controllers\SoapController@logAbsenStore')
                     ->timezone('Asia/Jakarta')
-                    ->dailyAt('01:00');
+                    ->dailyAt('08:00');
 
                 $schedule->call('App\Http\Controllers\KetidakhadiranController@store')
                     ->timezone('Asia/Jakarta')
-                    ->dailyAt('01:02');
+                    ->dailyAt('08:10');
 
                 $schedule->call('App\Http\Controllers\LogActivityController@store')
                     ->timezone('Asia/Jakarta')
-                    ->dailyAt('01:04');
+                    ->dailyAt('08:20');
             }
         }
 

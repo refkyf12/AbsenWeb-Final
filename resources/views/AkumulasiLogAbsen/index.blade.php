@@ -19,6 +19,12 @@
         <div class="box box-warning">
             <div class="box-header">
                 <div class="box-body">
+                    <form class="border" method="GET" action="{{$_SERVER['REQUEST_URI']}}">
+                        @csrf
+                        <button class="btn btn-sm btn-flat btn-warning btn-refresh">
+                            <i class="fa fa-refresh"></i> Refresh
+                        </button>
+                    </form>
                     <form method="GET" action="/akumulasi/filter">
                         <div class="form-group">
                             <label for="tanggal-filter-start">Tanggal Awal:</label>

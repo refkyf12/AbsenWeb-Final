@@ -52,7 +52,7 @@ class CutiController extends Controller
                 $cuti = Cuti::with('User')->whereIn('users_id', $hubunganKerja2)->where("type", 1)->where("status", 1)->union($cuti1)->get();
                 $izin = Cuti::with('User')->whereIn('users_id', $hubunganKerja1)->where("type", 2)->get();
             }
-            return view('Cuti.index', ['data' => $cuti, 'dataIzin' => $izin]);
+            return view('cuti.index', ['data' => $cuti, 'dataIzin' => $izin]);
         }
     }
 

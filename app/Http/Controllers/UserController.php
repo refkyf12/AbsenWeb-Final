@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\logKegiatan;
+use App\Models\LogKegiatan;
 use App\Models\Cuti;
 use App\Models\Lembur;
 use App\Models\Rules;
@@ -193,7 +193,7 @@ class UserController extends Controller
                         $date = date("Y-m-d h:i:sa");
                         $data = $request->nama;
                         $text = 'Melakukan Tambah Karyawan ' . $data;
-                        $logKegiatan = new logKegiatan;
+                        $logKegiatan = new LogKegiatan;
                         $logKegiatan->users_id = $id;
                         $logKegiatan->kegiatan = $text;
                         $logKegiatan->created_at = $date;
@@ -258,7 +258,7 @@ class UserController extends Controller
                     $karyawan = $request->nama;
                     $date = date("Y-m-d h:i:sa");
                     $text = 'Melakukan Edit Karyawan ' . $karyawan;
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;
@@ -375,7 +375,7 @@ class UserController extends Controller
                     $id = Auth::id();
                     $date = date("Y-m-d h:i:sa");
                     $text = 'Melakukan Reset Pada Karyawan ';
-                    $logKegiatan = new logKegiatan;
+                    $logKegiatan = new LogKegiatan;
                     $logKegiatan->users_id = $id;
                     $logKegiatan->kegiatan = $text;
                     $logKegiatan->created_at = $date;
@@ -394,20 +394,20 @@ class UserController extends Controller
         try{
             $user = User::find($users_id);
 
-        $temp = $user->jam_kurang - $user->jam_lebih;
-        $temp2 = $this->getLamaKerja();
-        $temp2 = $temp2 * 60;
+            $temp = $user->jam_kurang - $user->jam_lebih;
+            $temp2 = $this->getLamaKerja();
+            $temp2 = $temp2 * 60;
 
-        if($user->jam_kurang > $user->jam_lebih && $temp >= $temp2){
-            $user->jam_kurang = $user->jam_kurang - $temp2;
-            $user->sisa_cuti = $user->sisa_cuti - 1;
+            if($user->jam_kurang > $user->jam_lebih && $temp >= $temp2){
+                $user->jam_kurang = $user->jam_kurang - $temp2;
+                $user->sisa_cuti = $user->sisa_cuti - 1;
 
-            $user->update();
-        }
-        return redirect('/karyawan')->with('success', 'Tambah data berhasil');
+                $user->update();
+            }
+            return redirect('/karyawan')->with('success', 'Cuti berhasil diubah');
         }catch(Exception $e){
             $errorMessage = $e->getMessage();
-            return redirect('/karyawan')->with('error', 'Tambah data gagal');
+            return redirect('/karyawan')->with('error', 'Gagal mengubah');
         }
         
     }
