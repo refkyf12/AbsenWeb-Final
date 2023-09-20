@@ -41,7 +41,7 @@ class DashboardController extends Controller
         $batasKerja = $this->getBatasKerja();
         $today = date('Y-m-d', strtotime('-1 day'));
         $query = logAbsen::select('jam_masuk', 'nama')->join('users', 'users.id', 'log_absen.users_id' )
-                ->where('tanggal', '=', $today)
+                ->where('tanggal', '=', '2023-08-25')
                 ->whereRaw("STR_TO_DATE(jam_masuk, '%H:%i:%s') > STR_TO_DATE('$batasKerja', '%H:%i:%s')");
         // dd($query);
         $list = $query -> get();

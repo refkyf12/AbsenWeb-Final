@@ -292,7 +292,7 @@
     </div>
 </div>
 
-<div class="box">
+<div class="box collapsed-box">
     <div class="box-header with-border">
         <h3 class="box-title">Laporan Harian</h3>
         <div class="box-tools pull-right">
@@ -304,54 +304,54 @@
     </div>
 
     <div class="box-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-12">
+                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalTerlambat">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-clock-o"></i></span>
 
-
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="info-box mb-3" data-toggle="modal" data-target="#modalTerlambat">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-clock-o"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Karyawan Terlambat</span>
-                    <span class="info-box-number">{{$lateDailyLog['total']}}</span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Karyawan Terlambat</span>
+                            <span class="info-box-number">{{$lateDailyLog['total']}}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
                 </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
+                <div class="col-12">
+                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalAbsen">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-times-circle-o"></i></span>
 
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="info-box mb-3" data-toggle="modal" data-target="#modalAbsen">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-times-circle-o"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Karyawan Tidak Masuk</span>
-                    <span class="info-box-number">{{$absenceLog['total']}}</span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Karyawan Tidak Masuk</span>
+                            <span class="info-box-number">{{$absenceLog['total']}}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
                 </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
+                <div class="col-12">
+                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalCuti">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-envelope-open"></i></span>
 
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="info-box mb-3" data-toggle="modal" data-target="#modalCuti">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-envelope-open"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Karyawan Cuti</span>
-                    <span class="info-box-number">{{$totalCutiLog['total']}}</span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Karyawan Cuti</span>
+                            <span class="info-box-number">{{$totalCutiLog['total']}}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
                 </div>
-                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
+            <div class="col-md-6">
+                <div>
+                    <div class="chart tab-pane" id="daily-chart"
+                        style="position: relative; width: 300px; height: 300px;"></div>
+                </div>
+            </div>
         </div>
-
-        <div class="chart tab-pane" id="daily-chart" style="position: relative; height: 300px;"></div>
-
     </div>
 </div>
 
 
-<div class="box">
+<div class="box collapsed-box">
     <div class="box-header with-border">
         <h3 class="box-title">Laporan Mingguan</h3>
         <div class="box-tools pull-right">
@@ -363,96 +363,33 @@
     </div>
 
     <div class="box-body">
-
-
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="info-box mb-3" data-toggle="modal" data-target="#modalTerlambatWeekly">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Karyawan Terlambat</span>
-                    <span class="info-box-number">{{$lateWeeklyLog['total']}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="info-box mb-3" data-toggle="modal" data-target="#modalAbsenWeekly">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Karyawan Tidak Masuk</span>
-                    <span class="info-box-number">{{$weeklyAbsenceLog['total']}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="info-box mb-3" data-toggle="modal" data-target="#modalCuti">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Karyawan Cuti</span>
-                    <span class="info-box-number">{{$totalCutiLog['total']}}</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-        <div class="chart tab-pane" id="week-chart" style="position: relative; height: 300px;"></div>
-
-    </div>
-</div>
-
-<div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Laporan Bulanan</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                            class="fa fa-times"></i></button>
-                </div>
-            </div>
-
-            <div class="box-body">
-
-
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalTerlambatMonth">
-                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-12">
+                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalTerlambatWeekly">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-clock-o"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Karyawan Terlambat</span>
-                            <span class="info-box-number">{{$lateMonthlyLog['total']}}</span>
+                            <span class="info-box-number">{{$lateWeeklyLog['total']}}</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box -->
                 </div>
-
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalAbsenMonthly">
-                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
+                <div class="col-12">
+                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalAbsenWeekly">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-times-circle-o"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Karyawan Tidak Masuk</span>
-                            <span class="info-box-number">{{$monthlyAbsenceLog['total']}}</span>
+                            <span class="info-box-number">{{$weeklyAbsenceLog['total']}}</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box -->
                 </div>
-
-                <div class="col-12 col-sm-6 col-md-4">
+                <div class="col-12">
                     <div class="info-box mb-3" data-toggle="modal" data-target="#modalCuti">
-                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-user"></i></span>
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-envelope-open"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Karyawan Cuti</span>
@@ -460,13 +397,75 @@
                         </div>
                         <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box -->
                 </div>
-
-                <div class="chart tab-pane" id="month-chart" style="position: relative; height: 300px;"></div>
-
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <div class="chart tab-pane" id="daily-chart"
+                        style="position: relative; width: 300px; height: 300px;"></div>
+                </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="box collapsed-box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Laporan Bulanan</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+    </div>
+    
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-12">
+                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalTerlambatMonth">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-clock-o"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Karyawan Terlambat</span>
+                            <span class="info-box-number">{{$lateMonthlyLog['total']}}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalAbsenMonthly">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-times-circle-o"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Karyawan Tidak Masuk</span>
+                            <span class="info-box-number">{{$monthlyAbsenceLog['total']}}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="info-box mb-3" data-toggle="modal" data-target="#modalCuti">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-envelope-open"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Karyawan Cuti</span>
+                            <span class="info-box-number">{{$totalCutiLog['total']}}</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <div class="chart tab-pane" id="daily-chart"
+                        style="position: relative; width: 300px; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- <div class="col-12 col-sm-6 col-md-4">
