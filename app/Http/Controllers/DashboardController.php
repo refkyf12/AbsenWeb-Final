@@ -159,8 +159,12 @@ class DashboardController extends Controller
 
     function getTotalEmployee()
     {
-        $query = User::where('role_id', 0)->count();
+        $setRoles = [0, 1, 2, 3, 4];
+        $query = User::join('role', 'role.id', '=', 'users.role_id')
+                ->whereIn('users.role_id', $setRoles)
+                ->count();
         return $query;
+       
     }
 
 
